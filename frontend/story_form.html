@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hikaye Oluştur - Storymaker</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container nav-container">
+            <a href="index.html" class="nav-logo">Storymaker</a>
+            <div class="nav-links">
+                <span id="userInfo"></span>
+                <a href="profile.html" class="nav-link">Profilim</a>
+                <a href="#" id="logoutBtn" class="nav-link">Çıkış Yap</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <form id="storyForm" class="story-form">
+            <h1>Yeni Hikaye Oluştur</h1>
+
+            <div class="form-group">
+                <label for="prompt">Hikaye İsteği</label>
+                <textarea id="prompt" name="prompt" rows="6" required
+                          placeholder="Hikayenizin konusunu, karakterlerini ve istediğiniz detayları yazın..."></textarea>
+            </div>
+
+            <button type="submit" class="btn-primary">Hikaye Oluştur</button>
+        </form>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/story_form.js"></script>
+</body>
+</html> 

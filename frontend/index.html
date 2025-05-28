@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Storymaker - AI Destekli Hikaye Oluşturucu</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container nav-container">
+            <a href="index.html" class="nav-logo">Storymaker</a>
+            <div class="nav-links">
+                <span id="userInfo"></span>
+                <a href="story_form.html" class="nav-link">Yeni Hikaye</a>
+                <a href="profile.html" class="nav-link">Profilim</a>
+                <a href="#" id="logoutBtn" class="nav-link" style="display: none;">Çıkış Yap</a>
+                <a href="login.html" id="loginBtn" class="nav-link">Giriş Yap</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="hero">
+            <h1>AI Destekli Hikaye Oluşturucu</h1>
+            <p>Hayal gücünüzü kullanarak benzersiz hikayeler oluşturun. Yapay zeka teknolojimiz, hikayenizi daha da güçlendirecek.</p>
+            <div class="hero-buttons">
+                <a href="story_form.html" class="btn-primary">Hikaye Oluştur</a>
+                <a href="login.html" class="btn-secondary">Giriş Yap</a>
+            </div>
+        </div>
+
+        <div class="features">
+            <div class="feature">
+                <h2>Kolay Kullanım</h2>
+                <p>Basit ve sezgisel arayüz ile hikayenizi kolayca oluşturun.</p>
+            </div>
+            <div class="feature">
+                <h2>AI Destekli</h2>
+                <p>Yapay zeka teknolojimiz ile hikayenizi geliştirin ve zenginleştirin.</p>
+            </div>
+            <div class="feature">
+                <h2>Hikayelerinizi Saklayın</h2>
+                <p>Oluşturduğunuz tüm hikayeleri profilinizde saklayın ve istediğiniz zaman erişin.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script>
+        // Check authentication on page load
+        document.addEventListener('DOMContentLoaded', async () => {
+            const isAuth = await auth.checkAuth();
+            const user = auth.getCurrentUser();
+            
+            if (isAuth && user) {
+                // Update UI for logged in user
+                document.getElementById('userInfo').textContent = user.email;
+                document.getElementById('logoutBtn').style.display = 'inline';
+                document.getElementById('loginBtn').style.display = 'none';
+            } else {
+                // Update UI for guest user
+                document.getElementById('userInfo').style.display = 'none';
+                document.getElementById('logoutBtn').style.display = 'none';
+                document.getElementById('loginBtn').style.display = 'inline';
+            }
+        });
+
+        // Logout handler
+        document.getElementById('logoutBtn').addEventListener('click', async (e) => {
+            e.preventDefault();
+            try {
+                await auth.logout();
+            } catch (error) {
+                console.error('Logout failed:', error);
+                alert('Çıkış yapılırken bir hata oluştu');
+            }
+        });
+    </script>
+</body>
+</html>

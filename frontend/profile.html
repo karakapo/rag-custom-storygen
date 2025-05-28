@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profilim - Storymaker</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container nav-container">
+            <a href="index.html" class="nav-logo">Storymaker</a>
+            <div class="nav-links">
+                <span id="userInfo"></span>
+                <a href="story_form.html" class="nav-link">Yeni Hikaye</a>
+                <a href="#" id="logoutBtn" class="nav-link">Çıkış Yap</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="profile-container">
+            <h1>Hikayelerim</h1>
+            <div id="storyList" class="story-list">
+                <!-- Stories will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script>
+        // Check authentication on page load
+        document.addEventListener('DOMContentLoaded', async () => {
+            const isAuth = await auth.checkAuth();
+            if (!isAuth) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Update user info in the header
+            const user = auth.getCurrentUser();
+            if (user) {
+                const userInfoElement = document.getElementById('userInfo');
+                if (userInfoElement) {
+                    userInfoElement.textContent = user.email;
+                }
+
+                // Load user's stories
+                try {
+                    const response = await fetch(`http://localhost:8000/user/${user.id}/stories`, {
+                        headers: {
+                            'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+                        }
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Failed to load stories');
+                    }
+
+                    const stories = await response.json();
+                    const storyList = document.getElementById('storyList');
+
+                    if (stories.length === 0) {
+                        storyList.innerHTML = '<p class="no-stories">Henüz hiç hikaye oluşturmadınız.</p>';
+                        return;
+                    }
+
+                    storyList.innerHTML = stories.map(story => `
+                        <div class="story-item" data-id="${story.id}">
+                            <div class="story-item-info">
+                                <h3 class="story-item-title">${story.title}</h3>
+                                <p class="story-item-date">${new Date(story.created_at).toLocaleDateString('tr-TR')}</p>
+                            </div>
+                            <div class="story-item-actions">
+                                <a href="result.html?id=${story.id}" class="btn-secondary">Görüntüle</a>
+                                <button class="delete-btn" onclick="deleteStory(${story.id})">Sil</button>
+                            </div>
+                        </div>
+                    `).join('');
+                } catch (error) {
+                    console.error('Error loading stories:', error);
+                    alert('Hikayeler yüklenirken bir hata oluştu');
+                }
+            }
+        });
+
+        // Delete story
+        async function deleteStory(storyId) {
+            if (!confirm('Bu hikayeyi silmek istediğinizden emin misiniz?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`http://localhost:8000/user/${storyId}/delete`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to delete story');
+                }
+
+                // Remove story from DOM
+                const storyElement = document.querySelector(`.story-item[data-id="${storyId}"]`);
+                if (storyElement) {
+                    storyElement.remove();
+                }
+
+                // Check if there are any stories left
+                const storyList = document.getElementById('storyList');
+                if (storyList.children.length === 0) {
+                    storyList.innerHTML = '<p class="no-stories">Henüz hiç hikaye oluşturmadınız.</p>';
+                }
+            } catch (error) {
+                console.error('Error deleting story:', error);
+                alert('Hikaye silinirken bir hata oluştu');
+            }
+        }
+
+        // Logout handler
+        document.getElementById('logoutBtn').addEventListener('click', async (e) => {
+            e.preventDefault();
+            try {
+                await auth.logout();
+            } catch (error) {
+                console.error('Logout failed:', error);
+                alert('Çıkış yapılırken bir hata oluştu');
+            }
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,203 @@
+[
+    {
+      "category": "Main_character",
+      "name": "Yalnız Bir Bilim İnsanı",
+      "content": "Bilim insanı, felaket sonrası dünyada tek başına hayatta kalmaya çalışan, eski teknolojileri inceleyip yeniden kullanmak için mücadele eden biri. Zihinsel ve fiziksel olarak güçlü olmak zorunda. İnsanlık için umut taşıyan önemli bir keşfi yapmaya çalışıyor."
+    },
+    {
+      "category": "Main_character",
+      "name": "Eski Bir Soylu, Sürgüne Gönderilmiş",
+      "content": "Bir zamanlar zengin ve etkili olan, fakat sürgüne gönderilen bir soylu. Toplumun eski düzenini geri getirmek için eski gücünü ve bilgilerini kullanmayı hedefliyor. İçsel bir hırs ve intikam duygusu taşıyor."
+    },
+    {
+      "category": "Main_character",
+      "name": "Genç Bir Kaşif",
+      "content": "Henüz deneyimsiz ama cesur bir kaşif. Dünyanın keşfedilmemiş alanlarını, kaybolmuş medeniyetleri ve eski sırları çözmek için tehlikeli yolculuklara çıkıyor."
+    },
+    {
+      "category": "Main_character",
+      "name": "Eski Bir Askeri Lider, Emekli",
+      "content": "Bir zamanlar büyük bir orduyu yönetmiş, ancak emekli olmuş bir askeri lider. İçinde bulunduğu yeni düzeni kabul etmekte zorlanıyor ve geçmişteki zaferlerinin izlerini sürerek kendi yolunu bulmaya çalışıyor."
+    },
+    {
+      "category": "Main_character",
+      "name": "Genç Bir Hacker, Geçmişi Karanlık",
+      "content": "Teknolojik dünyada yetenekli bir hacker. Hükümetin ve büyük şirketlerin gizli sırlarını ortaya çıkarmak için bilgi sızdırıyor. Ancak, karanlık geçmişi ve suçları peşini bırakmıyor."
+    },
+    {
+      "category": "Environment",
+      "name": "Post-apokaliptik Şehir",
+      "content": "Dünya, büyük bir felaketin ardından harabe haline gelmiş. Şehirlerin çoğu terkedilmiş ve doğa, yıkımın izlerini silmeye çalışıyor. Ancak, hayatta kalanlar bu şehirlerin kalıntılarında hayatta kalma mücadelesi veriyor. İnsanlar, eski teknolojiyi kullanarak kendilerini savunuyor ve kaynakları bulmak için mücadele ediyor. Binalar harabe olmuş, eski alışveriş caddeleri yerini terkedilmiş mağazalar ve devasa çöp yığınlarına bırakmış. Havanın rengi sürekli gri, gökyüzü kalın bir duman tabakasıyla kaplı. İnsanlar, eski medeniyetin kalıntıları arasından hayatta kalmaya çalışırken, bir yanda da zalim çeteler ve hayatta kalmak için her şeyi göze almış gruplar var."
+    },
+    {
+      "category": "Environment",
+      "name": "Gizli Yeraltı Sığınak",
+      "content": "Yeraltında, devletin veya elitlerin güvenliği için inşa edilmiş, son derece gelişmiş bir yaşam alanı. Her şey otomatik ve teknolojiyle donatılmış, ancak dış dünya ile bağlantısı sınırlıdır. Gelişmiş sistemlerle korunan bu sığınaklar, insanların büyük felaketten kaçışı için son umut olmuştur."
+    },
+    {
+      "category": "Environment",
+      "name": "Orta Çağ Krallığı",
+      "content": "Krallıklar arasındaki savaşların ve ittifakların egemen olduğu, feodal bir sistemin hakim olduğu bir dünya. Büyük şatolar, taş yollar, katedraller ve kentler bu dünyada yaşamın izlerini taşıyor. Yoksul köylüler ve zengin soylular arasındaki keskin sınıf farkları belirgin. Savaşçılar ve şövalyeler, bu topraklarda adaletin ve hükmetmenin sembolüdür."
+    },
+    {
+      "category": "Environment",
+      "name": "Yüksek Teknolojiyle Donatılmış Futuristik Metropol",
+      "content": "Gelişmiş yapay zekâlar, uçan arabalar ve hologramlarla dolu bir metropol. Her şey dijitalleştirilmiş ve otomatikleşmiş. Ancak bu parlak dünya, büyük şirketlerin insanları izlediği, kişisel gizliliğin neredeyse sıfır olduğu bir yer. Şehirler devasa cam yapılarla dolu, ışıklar hiç sönmez."
+    },
+    {
+      "category": "Environment",
+      "name": "Derin Orman, Kaybolmuş Medeniyetin Kalıntıları",
+      "content": "Gizli, terkedilmiş bir orman. Dev ağaçlar, kaybolmuş medeniyetlerin kalıntılarıyla dolu. Tapınaklar, eski yapılar ve büyülü izler bu ormanın derinliklerinde gizlenmiş. Yüksek teknolojiyi unutan bazı insanlar, burada yaşamayı seçmiş."
+    },
+    {
+      "category": "Main_conflict",
+      "name": "Yeni Bir Dünya Düzeni Kurmak İçin Verilen Savaş",
+      "content": "Felaket sonrası hayatta kalanlar, eski dünyayı yeniden inşa etmeye çalışıyor. Ancak bu, farklı grupların sürekli çatışmalarına, yeni bir dünya düzeni kurmak için verilen kanlı bir savaşa yol açıyor."
+    },
+    {
+      "category": "Main_conflict",
+      "name": "Eski Bir Sırrı Açığa Çıkarmaya Çalışan Düşmanlar",
+      "content": "Birçok grup, eski bir medeniyetin veya teknolojinin sırrını açığa çıkarmak için mücadele ediyor. Bu sırrı bulan, dünyayı kontrol edebilecek güce sahip olacak. Ancak bu sırrı korumak isteyen güçler, her türlü yolu denemekten çekinmiyor."
+    },
+    {
+      "category": "Main_conflict",
+      "name": "Teknolojinin İnsanlık Üzerindeki Zararlı Etkileri",
+      "content": "Teknolojik gelişmeler insanları kurtarmak yerine daha fazla köleleştiriyor. İnsanlar, kendilerini tamamen makinelerin kontrolüne girmiş hissediyor ve özgürlüklerini geri kazanmak için savaşmaya başlıyor."
+    },
+    {
+      "category": "Main_conflict",
+      "name": "Toplumun Yozlaşmış Yapısına Karşı Kişisel Özgürlük Mücadelesi",
+      "content": "Halkın çoğu, yozlaşmış bir toplum yapısına hapsolmuş durumda. Bir grup, bu sistemi devirmeye ve daha adil bir düzen kurmaya çalışıyor. Toplumun hiyerarşisi ile mücadele etmek, hayatta kalabilmek için tek yol haline geliyor."
+    },
+    {
+      "category": "Main_conflict",
+      "name": "Geleceği Değiştirebilecek Bir Keşif Peşinde Olan Güçler",
+      "content": "Büyük bir keşif, geleceği yeniden şekillendirebilir. Birçok farklı grup ve hükümet, bu keşfi ele geçirmek için yarışıyor. Ancak bu keşif, sadece gücü ele geçirenlerin kontrolünde olacak."
+    },
+    {
+      "category": "Moral",
+      "name": "Güç ve Kontrol, Bireysel Haklardan Daha Önemli Değildir",
+      "content": "Güç ve kontrol arzusu, toplumu bozar ve bireysel hakları hiçe sayar. Gerçek özgürlük, gücün değil, adaletin ve eşitliğin sağlandığı bir dünyada mümkündür."
+    },
+    {
+      "category": "Moral",
+      "name": "Gerçek Dostluk Her Zaman Zor Zamanlarda Ortaya Çıkar",
+      "content": "İnsanlar, en karanlık zamanlarda birbirlerine tutunurlar. Gerçek dostluk, çıkar ilişkilerinden değil, birbirine duyulan derin güven ve sadakatten doğar."
+    },
+    {
+      "category": "Moral",
+      "name": "İnsanlık Tarihi, Her Zaman Tekrarlanan Hatalarla Şekillenir",
+      "content": "Toplumlar, geçmişte yaptıkları hataları tekrarlar. Her nesil, geçmişteki tecrübelerden ders almak yerine aynı hataları yapar."
+    },
+    {
+      "category": "Moral",
+      "name": "İyi Niyetli Bir Kişi Bile Kötüye Kullanılabilir",
+      "content": "Bazen en iyi niyetle yapılan bir şey, kötülüğe hizmet edebilir. İyi niyetli bir kişi, yanlış ellerde büyük bir tehlike yaratabilir."
+    },
+    {
+      "category": "Moral",
+      "name": "Kişisel Fedakarlık, Toplumsal Huzuru Getirir",
+      "content": "Bireylerin kişisel çıkarlarını bir kenara bırakıp toplum için fedakarlık yapmaları, gerçek huzuru getirebilir. Herkesin ortak iyiliği için yapılan fedakarlık, toplumun refahını artırır."
+    },
+    {
+      "category": "Plot",
+      "name": "Genç Bir Bilim İnsanı, Kaybolan Eski Bir Uygarlığın Sırlarını Çözmek İçin Mücadele Eder",
+      "content": "Felaket sonrası dünyada bir bilim insanı, kaybolan eski uygarlıkların sırlarını çözmeye çalışıyor. Bu sırrı açığa çıkarmak, insanlık için büyük bir umut olabilir."
+    },
+    {
+      "category": "Plot",
+      "name": "Bir Soylu, Sürgüne Gönderildikten Sonra Eski Krallığının Geri Alınması İçin Bir Ordu Kurar",
+      "content": "Sürgüne gönderilmiş bir soylu, eski topraklarını geri almak ve eski gücünü kazanmak için bir ordu toplar. Ancak karşısında onu durdurmak isteyen güçlü düşmanlar vardır."
+    },
+    {
+      "category": "Plot",
+      "name": "Bir Grup Kaşif, Bilinmeyen Bir Gezegenin Hayatta Kalma Mücadelesi Verir",
+      "content": "Bir grup kaşif, bilinmeyen bir gezegende hayatta kalmak için mücadele eder. Karşılarına çıkan tehlikeler, onları sürekli olarak sınar ve hayatta kalabilmek için her türlü yolu denerler."
+    },
+    {
+      "category": "Plot",
+      "name": "Teknolojik Bir Devrim Sonrası, Eski Dünya Düzenini Kurtarmaya Çalışan Bir Grup İsyancı",
+      "content": "Bir grup isyancı, teknolojik bir devrim sonrası eski düzeni tekrar kurmaya çalışır. Ancak, karşılarında sadece teknolojiyi değil, toplumsal yapıyı da değiştiren güçlü bir düşman vardır."
+    },
+    {
+      "category": "Plot",
+      "name": "Bir Hacker, Hükümetin Gizli Planlarını İfşa Etmeye Çalışır",
+      "content": "Bir hacker, hükümetin gizli planlarını ortaya çıkarmak için mücadele eder. Ancak, bu planları ortaya çıkaran kişinin başı büyük belaya girer."
+    },
+    {
+      "category": "Character_goal",
+      "name": "Kayıp Bir Nesnenin Peşinden Gitmek",
+      "content": "Ana karakter, kaybolmuş bir nesneyi bulmaya çalışır. Bu nesne, büyük bir güce sahip olabilir ve onu bulmak, karakterin kaderini belirleyecektir."
+    },
+    {
+      "category": "Character_goal",
+      "name": "İntikam Almak ve Eski Krallığını Geri Almak",
+      "content": "Sürgüne gönderilen eski bir soylu, intikam almak ve kaybettiği krallığını geri almak için yola çıkar. Bu yolculuk, ona büyük tecrübeler kazandıracak ve kişisel olarak güçlenmesine yol açacaktır."
+    },
+    {
+      "category": "Character_goal",
+      "name": "Bilinmeyen Bir Dünya Keşfi Yapmak",
+      "content": "Bir kaşif, bilinmeyen bir dünyayı keşfetmek için yola çıkar. Ancak karşısına çıkan tehlikeler ve bilinmeyen gizemler, onu sürekli olarak sınar."
+    },
+    {
+      "category": "Character_goal",
+      "name": "Toplumun Yozlaşmış Yapısını Yıkıp Adalet Getirmek",
+      "content": "Bir isyancı grup, toplumun yozlaşmış yapısını yıkıp, halk için daha adil bir düzen kurmayı hedefler. Bu mücadele, büyük bir değişim yaratacaktır."
+    },
+    {
+      "category": "Character_goal",
+      "name": "Gerçekleri Ortaya Çıkarıp Halkı Uyandırmak",
+      "content": "Bir hacker, hükümetin gizli planlarını ifşa etmeye çalışarak halkı uyandırmayı hedefler. Ancak bu, onun hayatını tehlikeye atacak ve ona büyük düşmanlar yaratacaktır."
+    },
+    {
+      "category": "Genre",
+      "name": "Bilim Kurgu",
+      "content": "Gelecekteki teknolojiler, insanlık için yeni bir çağ başlatacak ve gezegenler arası yolculuk, yapay zekâ ve biyoteknoloji gibi konuları içerecek."
+    },
+    {
+      "category": "Genre",
+      "name": "Fantastik",
+      "content": "Büyü, mitolojik yaratıklar ve efsanelerle dolu bir dünya. Kahramanlar, eski güçlerle mücadele eder ve büyülü objeleri arar."
+    },
+    {
+      "category": "Genre",
+      "name": "Distopya",
+      "content": "Toplumun yozlaştığı ve insanların köleleştirildiği, adaletin ve özgürlüğün kaybolduğu bir dünya."
+    },
+    {
+      "category": "Genre",
+      "name": "Gerilim",
+      "content": "Sürekli bir tehlike ve gerilim altında geçen bir hikaye. Karakterler, hayatta kalma mücadelesi verirken psikolojik olarak zorlanırlar."
+    },
+    {
+      "category": "Genre",
+      "name": "Macera",
+      "content": "Büyük bir yolculuk ve keşif, karakterleri bilinmeyen yerlere sürükler. Tehlikelerle dolu bir dünyada, kahramanlar birbirine güvenerek hayatta kalmaya çalışır."
+    },
+    {
+      "category": "Final_type",
+      "name": "Zafer ve Barış",
+      "content": "Tüm çatışmalar sona erer ve karakterler zafer kazanarak dünyayı daha adil bir yer haline getirir. Sonunda barış hakim olur."
+    },
+    {
+      "category": "Final_type",
+      "name": "Kişisel Fedakarlıkla Kazanılan Zafer",
+      "content": "Karakter, büyük bir fedakarlık yaparak zafer kazanır. Bu zafer, sadece bireysel değil, toplumsal düzeyde de bir değişim yaratır."
+    },
+    {
+      "category": "Final_type",
+      "name": "Felaketin Eşiğinden Dönülmesi",
+      "content": "Karakterler, dünyayı büyük bir felaketten kurtarır ve kaderlerini değiştirirler. Ancak felaketin eşiğinden dönmek, her şeyin çok geç olmadan yapılması gerektiğini gösterir."
+    },
+    {
+      "category": "Final_type",
+      "name": "Toplumda Büyük Değişim",
+      "content": "Toplumdaki yozlaşmış yapılar yıkılır ve yeni bir düzen kurulur. Karakterlerin mücadelesi, toplumsal yapıyı dönüştürür."
+    },
+    {
+      "category": "Final_type",
+      "name": "Büyük Bir İhaneti Takip Eden Bir Yeniden Doğuş",
+      "content": "Büyük bir ihanetin ardından karakterler, yeni bir başlangıç yaparak dünyayı yeniden şekillendirirler. Bu, eski düzenin tamamen yıkılmasını sağlar."
+    }
+  ]
+  
