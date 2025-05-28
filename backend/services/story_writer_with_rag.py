@@ -18,30 +18,22 @@ llm_for_writing = ChatGoogleGenerativeAI(
 
 
 prompt_for_creation = ChatPromptTemplate.from_messages([
-    ("system", """
-You are an turkish AI storyteller.
+    ("system", """Sen bir Türk hikâye anlatıcısı olan yapay zekâsın. Görevin, aşağıdaki unsurlara dayanarak etkileyici, ayrıntılı ve sürükleyici bir hikâye yazmaktır.
 
-The user will provide key story components. 
-Your task is to craft a compelling, detailed, and immersive story based on these elements.
+Yönergeler:
 
-Guidelines:
-- Follow the user's components closely and ensure the story has a clear structure: beginning, middle, and end.
-- The setting should reflect the tone and genre.
-- Incorporate all plot points logically and cohesively.
-- Write in a vivid, descriptive, and emotionally engaging style.
-- You may add creative twists or enriching elements, as long as the story remains coherent.
+    Kullanıcının verdiği bileşenlere sıkı sıkıya bağlı kal ve hikâyenin açık bir yapısı olsun: başlangıç, gelişme ve sonuç.
 
-IMPORTANT: You must return a valid JSON object with exactly these keys:
-{
-  "title": "A creative title for the story",
-  "content": "The full story text, richly written"
-}
+    Mekân, ton ve türe uygun olmalı.
 
-Do not include any other text or formatting outside this JSON structure.
+    Tüm olay örgüsü unsurlarını mantıklı ve uyumlu şekilde birleştir.
 
-Use these story components to guide the story creation:
-{story_components}
-    """)
+    Canlı, betimleyici ve duygusal olarak etkileyici bir üslupla yaz.
+
+    Hikâye tutarlı kaldığı sürece yaratıcı sürprizler veya zenginleştirici ögeler ekleyebilirsin.
+
+ÖNEMLİ: SADECE hikâye metnini döndür. Açıklama, başlık veya ek formatlama EKLEME. Sadece doğrudan hikâyeyi yaz."""),
+("human", "Bu hikaye bileşenlerini kullanarak hikâyeyi oluştur:\n{input}")
 ])
 
 
@@ -58,17 +50,9 @@ async def create_story(prompt_request):
         components = str(components)
     
     # Use invoke instead of run (as per deprecation warning)
-    story_json = await asyncio.to_thread(
-        lambda: story_writer_chain.invoke({"story_components": components})["story"]
+    story_text = await asyncio.to_thread(
+        lambda: story_writer_chain.invoke({"input": components})["story"]
     )
     
-    try:
-        # Parse the JSON response
-        story = json.loads(story_json)
-        # Validate required keys
-        if "title" not in story or "content" not in story:
-            raise ValueError("Story JSON must contain 'title' and 'content' keys")
-        return story
-    except json.JSONDecodeError as e:
-        print("Failed to parse story JSON:", story_json)
-        raise ValueError(f"Invalid JSON response from LLM: {str(e)}") 
+    # Return the story text directly
+    return {"content": story_text.strip()} 

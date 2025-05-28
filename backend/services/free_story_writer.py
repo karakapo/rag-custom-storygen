@@ -16,27 +16,28 @@ llm = ChatGoogleGenerativeAI(
 
 # Create story writing template
 story_template = ChatPromptTemplate.from_messages([
-    ("system", """You are a creative story writer that focuses on originality and emotional depth.
-    Your task is to write a story that:
-    1. Is completely original and creative
-    2. Has deep character development
-    3. Contains unexpected plot twists
-    4. Evokes strong emotions
-    5. Is memorable and engaging"""),
+    ("system", """Sen özgünlük ve duygusal derinliğe odaklanan yaratıcı bir hikâye yazarı olan yapay zekâsın.
+Görevin, aşağıdaki özellikleri taşıyan bir hikâye yazmaktır:
+
+    Tamamen özgün ve yaratıcı olması
+    Derinlemesine karakter gelişimi içermesi
+    Beklenmedik olay örgüsü dönüşleri barındırması
+    Güçlü duygular uyandırması
+    Akılda kalıcı ve sürükleyici olması"""),
     ("human", """
-    Write a creative and original story based on this optimized prompt:
-    
+    Bu optimize edilmiş isteme dayalı olarak yaratıcı ve özgün bir hikâye yaz:
+
     {optimized_prompt}
-    
-    Guidelines:
-    1. Be creative and original
-    2. Don't follow any specific template
-    3. Focus on character development and emotional depth
-    4. Create unexpected plot twists
-    5. Make the story engaging and memorable
-    
-    Return only the story, no additional text.
-    """)
+
+    Yönergeler:
+
+    Yaratıcı ve özgün ol
+    Belirli bir şablonu takip etme
+    Karakter gelişimine ve duygusal derinliğe odaklan
+    Beklenmedik olay örgüsü dönüşleri yarat
+    Hikâyeyi sürükleyici ve unutulmaz kıl
+    Sadece hikâye metnini döndür, ek bir metin yazma.
+""")
 ])
 
 

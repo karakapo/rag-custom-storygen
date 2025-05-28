@@ -53,12 +53,14 @@ async def story_create_endpoint(prompt: StoryRequest, session: Session = Depends
         
         # Debug logging
         print("Story content received:", story_content)
-        print("Title type:", type(story_content["title"]))
-        print("Title value:", repr(story_content["title"]))
         
         # Clean and update story with generated content
-        story.title = story_content["title"].strip()  # Remove leading/trailing whitespace and newlines
-        story.content = story_content["content"].strip()
+        content = story_content["content"].strip()
+        # Generate a default title from the first few words of the content
+        default_title = content.split('\n')[0][:50] + "..." if len(content) > 50 else content
+        
+        story.title = default_title
+        story.content = content
         story.status = "published"
         story.published_at = datetime.utcnow()
         story.generation_time = time.time() - start_time

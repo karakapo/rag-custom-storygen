@@ -11,34 +11,33 @@ load_dotenv()
 llm_for_optimization = ChatGoogleGenerativeAI(
     model="gemini-2.0-flash",
     google_api_key=os.getenv("GOOGLE_API_KEY"),
-    temperature=0.3,
-    convert_system_message_to_human=True
+    temperature=0.3
 )
 
 
 
-def optimize_prompt_text(name: str, age: int, genre: str, preferences: str) -> str:
+def optimize_prompt_text(name: str, age: int, genre: str, prompt: str) -> str:
     
     optimization_template = ChatPromptTemplate.from_messages([
-    ("system", """You are an expert prompt optimizer for AI systems. Your task is to enhance user prompts by:
-    1. Correcting spelling and grammar errors
-    2. Making the prompt more detailed and specific
-    3. Optimizing it for better AI understanding
-    4. Maintaining the original intent while improving clarity
-    5. Adding necessary context if missing
-    
-    Focus on making the prompt:
-    - Clear and unambiguous
-    - Well-structured
-    - Specific and detailed
-    - Free of errors
-    - Optimized for AI comprehension"""),
+    ("system", """Sen bir yapay zekâ sistemleri için uzman bir prompt (istem) geliştiricisisin. Görevin, kullanıcı istemlerini şu şekilde geliştirmektir:
+
+    Yazım ve dilbilgisi hatalarını düzeltmek
+    İstemi daha ayrıntılı ve özgül hâle getirmek
+    Yapay zekânın daha iyi anlayacağı şekilde optimize etmek
+    Orijinal amacı koruyarak netliği artırmak
+    Eksikse gerekli bağlamı eklemek
+    İstemin şu özelliklere sahip olmasına odaklan:
+    Açık ve belirsizlikten uzak
+    İyi yapılandırılmış
+    Özgül ve ayrıntılı
+    Hatalardan arınmış
+    Yapay zekâ tarafından kolayca anlaşılır şekilde optimize edilmiş"""),
     ("human", """
-    Please optimize this prompt for better AI understanding:
-    Character Name: {name}
-    Character Age: {age}
-    Genre: {genre}
-    Preferences: {preferences}
+    Lütfen bu istemi yapay zekânın daha iyi anlayacağı şekilde optimize et:
+    Karakter Adı: {name}
+    Karakter Yaşı: {age}
+    Tür: {genre}
+    İstem: {prompt}
     """)
 ])
 
@@ -52,6 +51,6 @@ def optimize_prompt_text(name: str, age: int, genre: str, preferences: str) -> s
         "name": name,
         "age": age,
         "genre": genre,
-        "preferences": preferences
+        "prompt": prompt
     })
     return result
