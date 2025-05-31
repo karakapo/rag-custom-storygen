@@ -1,25 +1,25 @@
 from datetime import datetime
-from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey, Boolean, Enum, JSON, Float, ARRAY
+from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey, Boolean, Enum as SQLEnum, JSON, Float, ARRAY
 from sqlalchemy.orm import relationship, declarative_base
 from sqlalchemy.sql import func
 import enum
 
 Base = declarative_base()
 
-class UserRole(enum.Enum):
-    ADMIN = "admin"
-    USER = "user"
+class UserRole(str, enum.Enum):
+    ADMIN = "ADMIN"
+    USER = "USER"
     EDITOR = "editor"
 
 class User(Base):
     __tablename__ = "users"
 
-    id = Column(Integer, primary_key=True, autoincrement=False)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     username = Column(String(50), unique=True, nullable=False)
     email = Column(String(100), unique=True, nullable=False)
     password_hash = Column(String(255), nullable=False)
-    role = Column(Enum(UserRole), default=UserRole.USER)
-    is_active = Column(Boolean, default=True)
+    role = Column(SQLEnum(UserRole), nullable=False, default=UserRole.USER)
+    is_active = Column(Boolean, nullable=False, default=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
 
@@ -32,7 +32,7 @@ class User(Base):
 class Story(Base):
     __tablename__ = "stories"
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     title = Column(String(200), nullable=True)
     content = Column(Text, nullable=True)
     author_id = Column(Integer, ForeignKey("users.id"), nullable=False)

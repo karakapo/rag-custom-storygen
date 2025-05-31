@@ -3,133 +3,171 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profilim - Storymaker</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Profilim - StoryMaker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components/navbar.css">
+    <link rel="stylesheet" href="css/components/buttons.css">
+    <link rel="stylesheet" href="css/components/forms.css">
+    <script src="js/include-navbar.js"></script>
 </head>
-<body>
-    <!-- Navigation -->
-    <nav class="nav">
-        <div class="container nav-container">
-            <a href="index.html" class="nav-logo">Storymaker</a>
-            <div class="nav-links">
-                <span id="userInfo"></span>
-                <a href="story_form.html" class="nav-link">Yeni Hikaye</a>
-                <a href="#" id="logoutBtn" class="nav-link">Çıkış Yap</a>
-            </div>
-        </div>
-    </nav>
+<body class="bg-light">
+    <!-- Navbar Container -->
+    <div id="navbar-container"></div>
 
-    <div class="container">
-        <div class="profile-container">
-            <h1>Hikayelerim</h1>
-            <div id="storyList" class="story-list">
-                <!-- Stories will be loaded here -->
+    <div class="container mt-4">
+        <div class="row">
+            <!-- Kullanıcı Bilgileri -->
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h3 class="card-title" id="username">Yükleniyor...</h3>
+                        <p class="text-muted" id="email">Yükleniyor...</p>
+                        <hr>
+                        <p><strong>Üyelik Tarihi:</strong> <span id="joinDate">Yükleniyor...</span></p>
+                        <p><strong>Rol:</strong> <span id="userRole">Yükleniyor...</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hikayeler Listesi -->
+            <div class="col-md-8">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h4 class="card-title mb-4">Hikayelerim</h4>
+                        <div id="storiesList">
+                            <div class="text-center">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Yükleniyor...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <script src="js/auth.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/navbar.js"></script>
+    <script src="/js/stories.js"></script>
     <script>
-        // Check authentication on page load
+        // Sayfa yüklendiğinde profil bilgilerini kontrol et
         document.addEventListener('DOMContentLoaded', async () => {
-            const isAuth = await auth.checkAuth();
-            if (!isAuth) {
-                window.location.href = 'login.html';
-                return;
-            }
-
-            // Update user info in the header
-            const user = auth.getCurrentUser();
-            if (user) {
-                const userInfoElement = document.getElementById('userInfo');
-                if (userInfoElement) {
-                    userInfoElement.textContent = user.email;
+            try {
+                const isAuthenticated = await auth.isAuthenticated();
+                if (!isAuthenticated) {
+                    window.location.href = '/login.html';
+                    return;
                 }
-
-                // Load user's stories
-                try {
-                    const response = await fetch(`http://localhost:8000/user/${user.id}/stories`, {
-                        headers: {
-                            'Authorization': `Bearer ${localStorage.getItem('authToken')}`
-                        }
-                    });
-
-                    if (!response.ok) {
-                        throw new Error('Failed to load stories');
-                    }
-
-                    const stories = await response.json();
-                    const storyList = document.getElementById('storyList');
-
-                    if (stories.length === 0) {
-                        storyList.innerHTML = '<p class="no-stories">Henüz hiç hikaye oluşturmadınız.</p>';
-                        return;
-                    }
-
-                    storyList.innerHTML = stories.map(story => `
-                        <div class="story-item" data-id="${story.id}">
-                            <div class="story-item-info">
-                                <h3 class="story-item-title">${story.title}</h3>
-                                <p class="story-item-date">${new Date(story.created_at).toLocaleDateString('tr-TR')}</p>
-                            </div>
-                            <div class="story-item-actions">
-                                <a href="result.html?id=${story.id}" class="btn-secondary">Görüntüle</a>
-                                <button class="delete-btn" onclick="deleteStory(${story.id})">Sil</button>
-                            </div>
-                        </div>
-                    `).join('');
-                } catch (error) {
-                    console.error('Error loading stories:', error);
-                    alert('Hikayeler yüklenirken bir hata oluştu');
-                }
+                loadUserProfile();
+            } catch (error) {
+                console.error('Auth check error:', error);
+                window.location.href = '/login.html';
             }
         });
 
-        // Delete story
-        async function deleteStory(storyId) {
-            if (!confirm('Bu hikayeyi silmek istediğinizden emin misiniz?')) {
-                return;
-            }
-
+        // Kullanıcı bilgilerini ve hikayeleri getir
+        async function loadUserProfile() {
             try {
-                const response = await fetch(`http://localhost:8000/user/${storyId}/delete`, {
-                    method: 'DELETE',
-                    headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+                // Kullanıcı bilgilerini getir
+                const user = await auth.getCurrentUser();
+                if (user) {
+                    document.getElementById('username').textContent = user.username;
+                    document.getElementById('email').textContent = user.email;
+                    document.getElementById('joinDate').textContent = new Date(user.created_at).toLocaleDateString('tr-TR');
+                    document.getElementById('userRole').textContent = user.role;
+
+                    // Kullanıcının hikayelerini getir
+                    console.log('Hikayeler yükleniyor...');
+                    const storiesResponse = await fetch(`http://localhost:8000/user/${user.id}/stories`, {
+                        headers: auth.getAuthHeaders(),
+                        credentials: 'include'
+                    });
+
+                    console.log('Hikayeler yanıtı:', {
+                        status: storiesResponse.status,
+                        statusText: storiesResponse.statusText,
+                        headers: Object.fromEntries(storiesResponse.headers.entries())
+                    });
+
+                    if (storiesResponse.ok) {
+                        const stories = await storiesResponse.json();
+                        console.log('Yüklenen hikayeler:', stories);
+                        const storiesList = document.getElementById('storiesList');
+                        
+                        if (stories.length === 0) {
+                            storiesList.innerHTML = `
+                                <div class="text-center py-5">
+                                    <div class="mb-4">
+                                        <i class="bi bi-book" style="font-size: 3rem; color: #6c757d;"></i>
+                                    </div>
+                                    <h5 class="text-muted mb-3">Henüz hiç hikaye oluşturmadınız</h5>
+                                    <p class="text-muted mb-4">İlk hikayenizi oluşturmak için ana sayfaya gidin</p>
+                                    <a href="/index.html" class="btn btn-primary">
+                                        <i class="bi bi-plus-circle me-2"></i>Yeni Hikaye Oluştur
+                                    </a>
+                                </div>`;
+                            return;
+                        }
+
+                        storiesList.innerHTML = stories.map(story => `
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">${story.title}</h5>
+                                    <p class="card-text text-muted">
+                                        Oluşturulma: ${new Date(story.created_at).toLocaleDateString('tr-TR')}
+                                        ${story.published_at ? ` | Yayınlanma: ${new Date(story.published_at).toLocaleDateString('tr-TR')}` : ''}
+                                    </p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <a href="/story.html?id=${story.id}" class="btn btn-primary btn-sm">Hikayeyi Görüntüle</a>
+                                        <button onclick="deleteStory(${story.id})" class="btn btn-danger btn-sm">Sil</button>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('');
+                    } else {
+                        throw new Error('Hikayeler yüklenemedi');
                     }
-                });
-
-                if (!response.ok) {
-                    throw new Error('Failed to delete story');
-                }
-
-                // Remove story from DOM
-                const storyElement = document.querySelector(`.story-item[data-id="${storyId}"]`);
-                if (storyElement) {
-                    storyElement.remove();
-                }
-
-                // Check if there are any stories left
-                const storyList = document.getElementById('storyList');
-                if (storyList.children.length === 0) {
-                    storyList.innerHTML = '<p class="no-stories">Henüz hiç hikaye oluşturmadınız.</p>';
                 }
             } catch (error) {
-                console.error('Error deleting story:', error);
-                alert('Hikaye silinirken bir hata oluştu');
+                console.error('Error:', error);
+                alert('Bilgiler yüklenirken bir hata oluştu');
             }
         }
 
-        // Logout handler
-        document.getElementById('logoutBtn').addEventListener('click', async (e) => {
-            e.preventDefault();
+        // Hikaye silme fonksiyonu
+        async function deleteStory(storyId) {
+            if (!confirm('Bu hikayeyi silmek istediğinizden emin misiniz?')) return;
+
             try {
-                await auth.logout();
+                const response = await fetch(`http://localhost:8000/story/${storyId}`, {
+                    method: 'DELETE',
+                    headers: auth.getAuthHeaders(),
+                    credentials: 'include'
+                });
+
+                console.log('Silme yanıtı:', {
+                    status: response.status,
+                    statusText: response.statusText
+                });
+
+                if (response.ok) {
+                    // Sayfayı yenile
+                    window.location.reload();
+                } else {
+                    const error = await response.json();
+                    throw new Error(error.detail || 'Hikaye silinemedi');
+                }
             } catch (error) {
-                console.error('Logout failed:', error);
-                alert('Çıkış yapılırken bir hata oluştu');
+                console.error('Error:', error);
+                alert('Hikaye silinirken bir hata oluştu: ' + error.message);
             }
-        });
+        }
     </script>
 </body>
 </html> 

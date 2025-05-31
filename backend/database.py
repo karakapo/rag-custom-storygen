@@ -86,6 +86,14 @@ class DatabaseConnection:
 # Create a singleton instance
 db = DatabaseConnection()
 
+# Dependency
+def get_db():
+    session = db._SessionLocal()
+    try:
+        yield session
+    finally:
+        session.close()
+
 # Example usage:
 """
 # Basic query

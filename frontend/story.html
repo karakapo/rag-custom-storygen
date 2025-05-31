@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hikaye Detayı - StoryMaker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <!-- Navbar Container -->
+    <div id="navbar-container"></div>
+
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <div id="loadingIndicator" class="text-center">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Yükleniyor...</span>
+                            </div>
+                        </div>
+                        <div id="storyContent" style="display: none;">
+                            <h1 id="storyTitle" class="card-title mb-4"></h1>
+                            <div class="story-meta mb-4">
+                                <small class="text-muted">
+                                    Oluşturulma: <span id="createdAt"></span>
+                                </small>
+                            </div>
+                            <div id="storyText" class="story-content mb-4"></div>
+                            <div class="story-actions">
+                                <a href="/create.html" class="btn btn-primary">Yeni Hikaye Oluştur</a>
+                                <button id="deleteStoryBtn" class="btn btn-danger">Hikayeyi Sil</button>
+                            </div>
+                        </div>
+                        <div id="errorMessage" class="alert alert-danger" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/auth.js"></script>
+    <script>
+        // Sayfa yüklendiğinde butonları kontrol et
+        async function updateAuthButtons() {
+            const authButtons = document.getElementById('authButtons');
+            const userButtons = document.getElementById('userButtons');
+
+            try {
+                // Authentication durumunu kontrol et
+                const isAuthenticated = await auth.isAuthenticated();
+                
+                if (isAuthenticated) {
+                    // Kullanıcı giriş yapmışsa
+                    authButtons.style.display = 'none';
+                    userButtons.style.display = 'flex';
+                    // Hikaye detaylarını yükle
+                    loadStoryDetails();
+                } else {
+                    // Kullanıcı giriş yapmamışsa
+                    authButtons.style.display = 'flex';
+                    userButtons.style.display = 'none';
+                    // Giriş sayfasına yönlendir
+                    window.location.href = '/login.html';
+                }
+            } catch (error) {
+                console.error('Auth check error:', error);
+                // Hata durumunda giriş sayfasına yönlendir
+                window.location.href = '/login.html';
+            }
+        }
+
+        // Sayfa yüklendiğinde butonları güncelle
+        document.addEventListener('DOMContentLoaded', updateAuthButtons);
+
+        // Hikaye detaylarını yükle
+        async function loadStoryDetails() {
+            try {
+                // URL'den hikaye ID'sini al
+                const urlParams = new URLSearchParams(window.location.search);
+                const storyId = urlParams.get('id');
+
+                if (!storyId) {
+                    throw new Error('Hikaye ID\'si bulunamadı');
+                }
+
+                // Hikaye detaylarını getir
+                const response = await fetch(`http://localhost:8000/story/${storyId}`, {
+                    headers: await auth.getAuthHeaders()
+                });
+
+                if (!response.ok) {
+                    throw new Error('Hikaye detayları alınamadı');
+                }
+
+                const story = await response.json();
+                
+                // Hikaye detaylarını göster
+                document.getElementById('storyTitle').textContent = story.title;
+                document.getElementById('createdAt').textContent = new Date(story.created_at).toLocaleDateString('tr-TR');
+                document.getElementById('storyText').innerHTML = story.content.replace(/\n/g, '<br>');
+
+                // Loading göstergesini gizle ve içeriği göster
+                document.getElementById('loadingIndicator').style.display = 'none';
+                document.getElementById('storyContent').style.display = 'block';
+
+                // Hikaye silme butonu için event listener
+                document.getElementById('deleteStoryBtn').addEventListener('click', async () => {
+                    if (!confirm('Bu hikayeyi silmek istediğinizden emin misiniz?')) {
+                        return;
+                    }
+
+                    try {
+                        const deleteResponse = await fetch(`http://localhost:8000/story/${storyId}`, {
+                            method: 'DELETE',
+                            headers: await auth.getAuthHeaders()
+                        });
+
+                        if (!deleteResponse.ok) {
+                            throw new Error('Hikaye silinemedi');
+                        }
+
+                        alert('Hikaye başarıyla silindi');
+                        window.location.href = 'profile.html';
+                    } catch (error) {
+                        console.error('Error:', error);
+                        alert('Hikaye silinirken bir hata oluştu: ' + error.message);
+                    }
+                });
+
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('loadingIndicator').style.display = 'none';
+                document.getElementById('errorMessage').textContent = error.message;
+                document.getElementById('errorMessage').style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html> 

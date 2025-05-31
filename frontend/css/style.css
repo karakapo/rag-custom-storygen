@@ -1,3 +1,44 @@
+/* Ana CSS dosyası */
+@import 'main.css';
+@import 'components/auth.css';
+@import 'components/navbar.css';
+@import 'components/footer.css';
+@import 'components/buttons.css';
+@import 'components/forms.css';
+@import 'pages/index.css';
+@import 'pages/story.css';
+
+/* Ortak değişkenler */
+:root {
+    --primary-color: #C98A95;
+    --secondary-color: #52929C;
+    --gradient-text: linear-gradient(45deg, #C98A95, #52929C);
+    --font-family: 'Poppins', sans-serif;
+    
+    /* Ek değişkenler */
+    --shadow-sm: 0 2px 10px rgba(201, 138, 149, 0.2);
+    --shadow-md: 0 4px 15px rgba(201, 138, 149, 0.3);
+    --border-radius: 10px;
+}
+
+/* Body styles that might be overridden by page-specific styles */
+body {
+    background-image: url("../images/page.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    &::before {
+        display: none;
+    }
+}
+
+/* Story sayfası için özel stil */
+body.story-page {
+    background-image: none;
+    background-color: white;
+}
+
 /* General Styles */
 * {
     margin: 0;

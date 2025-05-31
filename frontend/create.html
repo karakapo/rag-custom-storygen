@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hikaye Oluştur - NarraNova.ai</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components/navbar.css">
+    <link rel="stylesheet" href="css/components/buttons.css">
+    <link rel="stylesheet" href="css/components/forms.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <!-- Navbar Container -->
+    <div id="navbar-container"></div>
+
+    <!-- Ana İçerik -->
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h2 class="card-title text-center mb-4">Yeni Hikaye Oluştur</h2>
+                        <div id="storyForm">
+                            <div class="mb-3">
+                                <label for="prompt" class="form-label">Hikaye İsteği</label>
+                                <textarea class="form-control" id="prompt" rows="4" 
+                                    placeholder="Hikayenizin konusunu, karakterlerini ve istediğiniz detayları buraya yazın..."
+                                    required></textarea>
+                            </div>
+                            <div class="d-grid">
+                                <button type="button" class="btn btn-primary btn-lg" id="createStoryButton">
+                                    Story Üret
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Son Hikayeler -->
+                <div class="card shadow mt-4">
+                    <div class="card-body">
+                        <h3 class="card-title mb-4">Son Hikayelerim</h3>
+                        <div id="recentStories">
+                            <div class="text-center">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Yükleniyor...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/stories.js"></script>
+    <script>
+        // Sayfa yüklendiğinde authentication kontrolü
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (!auth.requireAuth()) return;
+
+            // Son hikayeleri yükle
+            loadRecentStories();
+
+            // Story üret butonuna tıklama olayını dinle
+            const createStoryButton = document.getElementById('createStoryButton');
+            if (createStoryButton) {
+                createStoryButton.addEventListener('click', async () => {
+                    const promptInput = document.getElementById('prompt');
+                    if (!promptInput.value.trim()) {
+                        alert('Lütfen bir hikaye isteği girin');
+                        return;
+                    }
+
+                    try {
+                        // Loading durumunu göster
+                        createStoryButton.disabled = true;
+                        createStoryButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Hikaye Oluşturuluyor...';
+                        promptInput.disabled = true;
+
+                        const user = await auth.getCurrentUser();
+                        if (!user) {
+                            throw new Error('Kullanıcı bilgisi alınamadı');
+                        }
+
+                        console.log('Story oluşturma isteği gönderiliyor...');
+                        console.log('İstek detayları:', {
+                            url: '/story/create',
+                            method: 'POST',
+                            headers: {
+                                ...auth.getAuthHeaders(),
+                                'Content-Type': 'application/json'
+                            },
+                            body: {
+                                prompt: promptInput.value,
+                                user_id: user.id
+                            }
+                        });
+
+                        const response = await fetch('http://localhost:8000/story/create', {
+                            method: 'POST',
+                            headers: {
+                                ...auth.getAuthHeaders(),
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                prompt: promptInput.value,
+                                user_id: user.id
+                            }),
+                            credentials: 'include'
+                        });
+
+                        console.log('Sunucu yanıtı:', {
+                            status: response.status,
+                            statusText: response.statusText,
+                            headers: Object.fromEntries(response.headers.entries())
+                        });
+
+                        if (response.ok) {
+                            const story = await response.json();
+                            console.log('Hikaye oluşturuldu:', story);
+                            // Başarılı olduğunda hikaye sayfasına yönlendir
+                            window.location.href = `/story.html?id=${story.id}`;
+                        } else {
+                            let errorMessage = 'Hikaye oluşturulamadı';
+                            try {
+                                const errorData = await response.json();
+                                errorMessage = errorData.detail || errorMessage;
+                                console.error('Sunucu hatası:', errorData);
+                            } catch (e) {
+                                console.error('Hata yanıtı parse edilemedi:', e);
+                            }
+                            throw new Error(errorMessage);
+                        }
+                    } catch (error) {
+                        console.error('Hata:', error);
+                        alert(error.message || 'Hikaye oluşturulurken bir hata oluştu');
+                    } finally {
+                        // Loading durumunu kaldır
+                        createStoryButton.disabled = false;
+                        createStoryButton.innerHTML = 'Story Üret';
+                        promptInput.disabled = false;
+                    }
+                });
+            }
+        });
+
+        // Son hikayeleri yükle
+        async function loadRecentStories() {
+            try {
+                const user = await auth.getCurrentUser();
+                if (!user) return;
+
+                console.log('Son hikayeler yükleniyor...');
+                const response = await fetch(`http://localhost:8000/user/${user.id}/stories`, {
+                    headers: auth.getAuthHeaders(),
+                    credentials: 'include'
+                });
+
+                console.log('Son hikayeler yanıtı:', {
+                    status: response.status,
+                    statusText: response.statusText,
+                    headers: Object.fromEntries(response.headers.entries())
+                });
+
+                if (response.ok) {
+                    const stories = await response.json();
+                    console.log('Yüklenen son hikayeler:', stories);
+                    const recentStoriesDiv = document.getElementById('recentStories');
+                    
+                    if (stories.length === 0) {
+                        recentStoriesDiv.innerHTML = `
+                            <div class="text-center py-4">
+                                <div class="mb-3">
+                                    <i class="bi bi-book" style="font-size: 2.5rem; color: #6c757d;"></i>
+                                </div>
+                                <h5 class="text-muted mb-3">Henüz hiç hikaye oluşturmadınız</h5>
+                                <p class="text-muted">Yukarıdaki formu kullanarak ilk hikayenizi oluşturabilirsiniz</p>
+                            </div>`;
+                        return;
+                    }
+
+                    // En son 5 hikayeyi göster
+                    const recentStories = stories.slice(0, 5);
+                    recentStoriesDiv.innerHTML = recentStories.map(story => `
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">${story.title}</h5>
+                                <p class="card-text text-muted">
+                                    Oluşturulma: ${new Date(story.created_at).toLocaleDateString('tr-TR')}
+                                </p>
+                                <a href="/story.html?id=${story.id}" class="btn btn-primary btn-sm">Hikayeyi Görüntüle</a>
+                            </div>
+                        </div>
+                    `).join('');
+
+                    // Tüm hikayeleri görüntüle linki
+                    if (stories.length > 5) {
+                        recentStoriesDiv.innerHTML += `
+                            <div class="text-center mt-3">
+                                <a href="/profile.html" class="btn btn-outline-primary">Tüm Hikayelerimi Görüntüle</a>
+                            </div>
+                        `;
+                    }
+                } else {
+                    throw new Error('Hikayeler yüklenemedi');
+                }
+            } catch (error) {
+                console.error('Error loading stories:', error);
+                document.getElementById('recentStories').innerHTML = 
+                    `<p class="text-center text-danger">Hikayeler yüklenirken bir hata oluştu: ${error.message}</p>`;
+            }
+        }
+    </script>
+</body>
+</html> 

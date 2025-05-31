@@ -3,78 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Storymaker - AI Destekli Hikaye Oluşturucu</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>NarraNova.ai</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components/navbar.css">
+    <link rel="stylesheet" href="css/components/footer.css">
+    <link rel="stylesheet" href="css/components/buttons.css">
+    <link rel="stylesheet" href="css/components/forms.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="nav">
-        <div class="container nav-container">
-            <a href="index.html" class="nav-logo">Storymaker</a>
-            <div class="nav-links">
-                <span id="userInfo"></span>
-                <a href="story_form.html" class="nav-link">Yeni Hikaye</a>
-                <a href="profile.html" class="nav-link">Profilim</a>
-                <a href="#" id="logoutBtn" class="nav-link" style="display: none;">Çıkış Yap</a>
-                <a href="login.html" id="loginBtn" class="nav-link">Giriş Yap</a>
-            </div>
-        </div>
-    </nav>
+    <!-- Navbar Container -->
+    <div id="navbar-container"></div>
+
+    <!-- Flash messages -->
+    <div id="flash-messages"></div>
 
     <div class="container">
-        <div class="hero">
-            <h1>AI Destekli Hikaye Oluşturucu</h1>
-            <p>Hayal gücünüzü kullanarak benzersiz hikayeler oluşturun. Yapay zeka teknolojimiz, hikayenizi daha da güçlendirecek.</p>
-            <div class="hero-buttons">
-                <a href="story_form.html" class="btn-primary">Hikaye Oluştur</a>
-                <a href="login.html" class="btn-secondary">Giriş Yap</a>
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <div class="hero-content">
+                <h1 class="display-4 fw-bold mb-4">Hayal Gücünüzü Yazıya Dökün</h1>
+                <p class="lead mb-4">
+                    NarraNova.ai ile yapay zeka destekli hikaye oluşturma platformunda, 
+                    hayallerinizi gerçeğe dönüştürün. Benzersiz hikayeler yaratın, 
+                    paylaşın ve keşfedin.
+                </p>
+                <div class="hero-buttons">
+                    <a href="create.html" class="btn btn-primary btn-lg" id="createStoryBtn">Hikaye Oluştur</a>
+                    <a href="register.html" class="btn btn-outline btn-lg" id="registerBtn">Ücretsiz Başla</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="images/hero-image.svg" alt="NarraNova.ai Hero" class="img-fluid" onerror="this.src='https://placehold.co/600x400?text=NarraNova.ai'">
             </div>
         </div>
 
-        <div class="features">
-            <div class="feature">
-                <h2>Kolay Kullanım</h2>
-                <p>Basit ve sezgisel arayüz ile hikayenizi kolayca oluşturun.</p>
+        <!-- Features Section -->
+        <div class="features-section">
+            <h2 class="section-title">Neden NarraNova.ai?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="icon-magic"></i>
+                    </div>
+                    <h3>Yapay Zeka Desteği</h3>
+                    <p>
+                        Gelişmiş yapay zeka teknolojimiz ile hikayelerinizi 
+                        profesyonel bir şekilde oluşturun ve geliştirin.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="icon-book"></i>
+                    </div>
+                    <h3>Kolay Kullanım</h3>
+                    <p>
+                        Basit ve kullanıcı dostu arayüzümüz ile hikayelerinizi 
+                        kolayca oluşturun ve yönetin.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="icon-cloud"></i>
+                    </div>
+                    <h3>Güvenli Depolama</h3>
+                    <p>
+                        Hikayeleriniz güvenle saklanır ve istediğiniz zaman 
+                        erişebilirsiniz.
+                    </p>
+                </div>
             </div>
-            <div class="feature">
-                <h2>AI Destekli</h2>
-                <p>Yapay zeka teknolojimiz ile hikayenizi geliştirin ve zenginleştirin.</p>
-            </div>
-            <div class="feature">
-                <h2>Hikayelerinizi Saklayın</h2>
-                <p>Oluşturduğunuz tüm hikayeleri profilinizde saklayın ve istediğiniz zaman erişin.</p>
+        </div>
+
+        <!-- How It Works Section -->
+        <div class="how-it-works-section">
+            <h2 class="section-title">Nasıl Çalışır?</h2>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h4>Kayıt Olun</h4>
+                    <p>Ücretsiz hesap oluşturun</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h4>Hikaye İsteği</h4>
+                    <p>Hikayenizin konusunu yazın</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h4>Hikaye Oluştur</h4>
+                    <p>Yapay zeka hikayenizi oluştursun</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h4>Paylaşın</h4>
+                    <p>Hikayenizi kaydedin ve paylaşın</p>
+                </div>
             </div>
         </div>
     </div>
 
-    <script src="js/auth.js"></script>
-    <script>
-        // Check authentication on page load
-        document.addEventListener('DOMContentLoaded', async () => {
-            const isAuth = await auth.checkAuth();
-            const user = auth.getCurrentUser();
-            
-            if (isAuth && user) {
-                // Update UI for logged in user
-                document.getElementById('userInfo').textContent = user.email;
-                document.getElementById('logoutBtn').style.display = 'inline';
-                document.getElementById('loginBtn').style.display = 'none';
-            } else {
-                // Update UI for guest user
-                document.getElementById('userInfo').style.display = 'none';
-                document.getElementById('logoutBtn').style.display = 'none';
-                document.getElementById('loginBtn').style.display = 'inline';
-            }
-        });
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h5>NarraNova.ai</h5>
+                    <p>
+                        Hayallerinizi gerçeğe dönüştüren yapay zeka destekli 
+                        hikaye oluşturma platformu.
+                    </p>
+                </div>
+                <div class="footer-section">
+                    <h5>Bağlantılar</h5>
+                    <ul>
+                        <li><a href="/">Ana Sayfa</a></li>
+                        <li><a href="/create.html">Hikaye Oluştur</a></li>
+                        <li><a href="/profile.html">Profilim</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h5>İletişim</h5>
+                    <ul>
+                        <li><a href="mailto:info@narranova.ai">info@narranova.ai</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <small>&copy; 2024 NarraNova.ai. Tüm hakları saklıdır.</small>
+            </div>
+        </div>
+    </footer>
 
-        // Logout handler
-        document.getElementById('logoutBtn').addEventListener('click', async (e) => {
-            e.preventDefault();
+    <script src="js/auth.js"></script>
+    <script src="js/navbar.js"></script>
+    <script>
+        // Sayfa özel işlemleri
+        document.addEventListener('DOMContentLoaded', async () => {
+            const createStoryBtn = document.getElementById('createStoryBtn');
+            const registerBtn = document.getElementById('registerBtn');
+
             try {
-                await auth.logout();
+                const response = await fetch('/api/auth/check', {
+                    credentials: 'include'
+                });
+                const data = await response.json();
+                
+                if (data.authenticated) {
+                    createStoryBtn.href = 'create.html';
+                    registerBtn.style.display = 'none';
+                } else {
+                    createStoryBtn.href = 'login.html';
+                    registerBtn.style.display = 'inline-block';
+                }
             } catch (error) {
-                console.error('Logout failed:', error);
-                alert('Çıkış yapılırken bir hata oluştu');
+                console.error('Auth check error:', error);
+                createStoryBtn.href = 'login.html';
+                registerBtn.style.display = 'inline-block';
+            }
+
+            // Flash messages
+            const flashMessages = document.getElementById('flash-messages');
+            const urlParams = new URLSearchParams(window.location.search);
+            const message = urlParams.get('message');
+            const type = urlParams.get('type');
+            
+            if (message) {
+                const alertDiv = document.createElement('div');
+                alertDiv.className = `alert alert-${type || 'info'}`;
+                alertDiv.textContent = message;
+                flashMessages.appendChild(alertDiv);
+                
+                // Remove message from URL
+                const newUrl = window.location.pathname;
+                window.history.replaceState({}, document.title, newUrl);
             }
         });
     </script>
