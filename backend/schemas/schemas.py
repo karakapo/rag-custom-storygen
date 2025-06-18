@@ -3,24 +3,28 @@ from typing import List, Optional, Dict
 from datetime import datetime
 from enum import Enum
 
+class StoryType(str, Enum):
+    RAG = "rag"
+    FREE_WRITER = "free_writer"
+
 class StoryRequest(BaseModel):
     prompt: str = Field(..., description="Hikaye oluşturma için prompt")
+    name: Optional[str] = Field(None, description="Karakter adı")
+    age: Optional[int] = Field(None, description="Karakter yaşı")
+    gender: Optional[str] = Field(None, description="Karakter cinsiyeti")
+    genre: Optional[str] = Field("Genel", description="Hikaye türü")
 
 class StoryResponse(BaseModel):
     id: int
     prompt: str
     content: str
     title: str
+    story_type: StoryType
     created_at: datetime
     published_at: Optional[datetime] = None
 
     class Config:
         from_attributes = True
-
-class HealthResponse(BaseModel):
-    status: str
-    services: dict
-    timestamp: datetime
 
 # Prompt optimize istek/yanıtı (varsa kullanılır)
 class PromptRequest(BaseModel):

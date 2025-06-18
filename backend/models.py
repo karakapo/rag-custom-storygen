@@ -1,9 +1,14 @@
 from datetime import datetime
-from sqlalchemy import Column, Integer, String, Text, DateTime, Boolean, JSON, Float, ARRAY
+from sqlalchemy import Column, Integer, String, Text, DateTime, Boolean, JSON, Float, ARRAY, Enum
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.sql import func
+import enum
 
 Base = declarative_base()
+
+class StoryType(enum.Enum):
+    RAG = "rag"
+    FREE_WRITER = "free_writer"
 
 class Story(Base):
     __tablename__ = "stories"
@@ -13,6 +18,7 @@ class Story(Base):
     content = Column(Text, nullable=True)
     author_id = Column(Integer, nullable=False, default=1)  # Default author ID since auth is removed
     status = Column(String(20), default="draft")
+    story_type = Column(Enum(StoryType), nullable=False, default=StoryType.RAG)  # New field to distinguish story types
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
     published_at = Column(DateTime(timezone=True), nullable=True)

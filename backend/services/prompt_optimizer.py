@@ -1,7 +1,6 @@
 import os
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.prompts import ChatPromptTemplate
-from langchain.chains import LLMChain
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -19,10 +18,10 @@ llm_for_optimization = ChatGoogleGenerativeAI(
 def optimize_prompt_text(name: str, age: int, genre: str, prompt: str) -> str:
     
     optimization_template = ChatPromptTemplate.from_messages([
-    ("system", """Sen bir yapay zekâ sistemleri için uzman bir prompt (istem) geliştiricisisin. Görevin, kullanıcı istemlerini şu şekilde geliştirmektir:
+    ("system", """Sen bir yapay zekâ sistemleri için uzman bir prompt (istem) geliştiricisisin. 
+    Görevin, kullanıcı istemlerini şu şekilde geliştirmektir:
 
     Yazım ve dilbilgisi hatalarını düzeltmek
-    İstemi daha ayrıntılı ve özgül hâle getirmek
     Yapay zekânın daha iyi anlayacağı şekilde optimize etmek
     Orijinal amacı koruyarak netliği artırmak
     Eksikse gerekli bağlamı eklemek
@@ -41,16 +40,13 @@ def optimize_prompt_text(name: str, age: int, genre: str, prompt: str) -> str:
     """)
 ])
 
-    optimization_chain = LLMChain(
-        llm=llm_for_optimization,
-        prompt=optimization_template,
-        output_key="optimized_prompt"
-)
+    # Modern LangChain syntax using RunnableSequence
+    optimization_chain = optimization_template | llm_for_optimization
     
-    result = optimization_chain.run({
+    result = optimization_chain.invoke({
         "name": name,
         "age": age,
         "genre": genre,
         "prompt": prompt
     })
-    return result
+    return result.content

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Story Create with RAG - StoryMaker</title>
+    <title>Free Writer - StoryMaker</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -46,7 +46,7 @@
         .header h1 {
             font-size: 3rem;
             font-weight: 700;
-            color: var(--primary-pink);
+            color: var(--primary-green);
             margin-bottom: 10px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
@@ -61,7 +61,7 @@
             position: fixed;
             top: 20px;
             left: 20px;
-            background: var(--primary-green);
+            background: var(--primary-pink);
             color: var(--text-light);
             border: none;
             padding: 12px 20px;
@@ -88,47 +88,82 @@
             margin-bottom: 30px;
         }
 
-        .form-title {
-            font-size: 2rem;
-            font-weight: 600;
-            color: var(--primary-pink);
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
             margin-bottom: 30px;
-            text-align: center;
         }
 
         .form-group {
-            margin-bottom: 25px;
+            display: flex;
+            flex-direction: column;
         }
 
         .form-group label {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 600;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             color: var(--text-dark);
-            display: block;
         }
 
+        .form-group input,
+        .form-group select,
         .form-group textarea {
-            width: 100%;
-            min-height: 200px;
-            padding: 20px;
+            padding: 15px;
             border: 3px solid var(--light-pink);
-            border-radius: 20px;
-            font-size: 1.1rem;
+            border-radius: 15px;
+            font-size: 1rem;
             font-family: 'Fredoka', sans-serif;
-            resize: vertical;
             transition: all 0.3s ease;
             background: var(--text-light);
         }
 
+        .form-group input:focus,
+        .form-group select:focus,
         .form-group textarea:focus {
             outline: none;
             border-color: var(--primary-green);
             box-shadow: 0 0 0 3px rgba(50, 205, 50, 0.1);
         }
 
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .prompt-section {
+            margin-bottom: 30px;
+        }
+
+        .prompt-section label {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+            display: block;
+        }
+
+        .prompt-section textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 20px;
+            border: 3px solid var(--light-green);
+            border-radius: 20px;
+            font-size: 1.1rem;
+            font-family: 'Fredoka', sans-serif;
+            resize: vertical;
+            transition: all 0.3s ease;
+        }
+
+        .prompt-section textarea:focus {
+            outline: none;
+            border-color: var(--primary-pink);
+            box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.1);
+        }
+
         .submit-button {
-            background: linear-gradient(135deg, var(--primary-pink) 0%, var(--secondary-pink) 100%);
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--secondary-green) 100%);
             color: var(--text-light);
             border: none;
             padding: 20px 40px;
@@ -164,8 +199,8 @@
         .loading-spinner {
             width: 40px;
             height: 40px;
-            border: 4px solid var(--light-green);
-            border-top: 4px solid var(--primary-green);
+            border: 4px solid var(--light-pink);
+            border-top: 4px solid var(--primary-pink);
             border-radius: 50%;
             animation: spin 1s linear infinite;
             margin: 0 auto 15px;
@@ -188,7 +223,7 @@
         .result-title {
             font-size: 2rem;
             font-weight: 700;
-            color: var(--primary-green);
+            color: var(--primary-pink);
             margin-bottom: 20px;
             text-align: center;
         }
@@ -197,10 +232,10 @@
             font-size: 1.1rem;
             line-height: 1.8;
             color: var(--text-dark);
-            background: var(--light-pink);
+            background: var(--light-green);
             padding: 30px;
             border-radius: 20px;
-            border-left: 5px solid var(--primary-pink);
+            border-left: 5px solid var(--primary-green);
         }
 
         .error-message {
@@ -223,75 +258,6 @@
             display: none;
         }
 
-        /* Recent Stories Section */
-        .recent-stories {
-            background: var(--text-light);
-            border-radius: 25px;
-            padding: 40px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
-
-        .recent-stories h2 {
-            font-size: 2rem;
-            font-weight: 600;
-            color: var(--primary-green);
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        .story-card {
-            background: var(--light-green);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-left: 5px solid var(--primary-green);
-            transition: transform 0.3s ease;
-        }
-
-        .story-card:hover {
-            transform: translateY(-2px);
-        }
-
-        .story-card h3 {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: var(--text-dark);
-            margin-bottom: 10px;
-        }
-
-        .story-card p {
-            color: #666;
-            margin-bottom: 15px;
-        }
-
-        .story-link {
-            background: var(--primary-green);
-            color: var(--text-light);
-            text-decoration: none;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: inline-block;
-        }
-
-        .story-link:hover {
-            background: var(--secondary-green);
-            transform: translateY(-1px);
-        }
-
-        .empty-stories {
-            text-align: center;
-            padding: 40px;
-            color: #666;
-        }
-
-        .empty-stories .icon {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            opacity: 0.5;
-        }
-
         /* Responsive Design */
         @media (max-width: 768px) {
             .container {
@@ -302,9 +268,12 @@
                 font-size: 2.5rem;
             }
             
-            .form-container,
-            .recent-stories {
+            .form-container {
                 padding: 20px;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
             }
             
             .back-button {
@@ -369,8 +338,8 @@
 
     <div class="container">
         <div class="header">
-            <h1>🤖 Story Create with RAG</h1>
-            <p>Yapay zeka ile akıllı hikaye oluşturucu! Senin fikirlerini alıp harika hikayeler yazar.</p>
+            <h1>✍️ Free Writer</h1>
+            <p>Kendi hikayeni istediğin gibi yaz! Yapay zeka sana yardım etsin.</p>
         </div>
 
         <!-- Story History Button -->
@@ -391,21 +360,56 @@
         </div>
 
         <div class="form-container">
-            <h2 class="form-title">Hikaye İsteğin</h2>
-            <form id="ragStoryForm">
-                <div class="form-group">
+            <form id="freeWriterForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="name">👤 İsim:</label>
+                        <input type="text" id="name" name="name" placeholder="Hikayenin kahramanının adı" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="age">🎂 Yaş:</label>
+                        <input type="number" id="age" name="age" placeholder="Kahramanın yaşı" min="1" max="120" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="gender">👥 Cinsiyet:</label>
+                        <select id="gender" name="gender" required>
+                            <option value="">Seçiniz</option>
+                            <option value="erkek">Erkek</option>
+                            <option value="kız">Kız</option>
+                            <option value="diğer">Diğer</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="genre">📚 Tür:</label>
+                        <select id="genre" name="genre" required>
+                            <option value="">Seçiniz</option>
+                            <option value="macera">Macera</option>
+                            <option value="fantastik">Fantastik</option>
+                            <option value="bilim kurgu">Bilim Kurgu</option>
+                            <option value="komedi">Komedi</option>
+                            <option value="drama">Drama</option>
+                            <option value="gizem">Gizem</option>
+                            <option value="eğitici">Eğitici</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="prompt-section">
                     <label for="prompt">💭 Hikaye İsteğin:</label>
-                    <textarea id="prompt" name="prompt" placeholder="Hikayenin nasıl olmasını istiyorsun? Karakterler, olaylar, mekan hakkında detaylar ver... RAG sistemi bu bilgileri kullanarak sana özel bir hikaye oluşturacak!" required></textarea>
+                    <textarea id="prompt" name="prompt" placeholder="Hikayenin nasıl olmasını istiyorsun? Karakterler, olaylar, mekan hakkında detaylar ver..." required></textarea>
                 </div>
 
                 <button type="submit" class="submit-button" id="submitBtn">
-                    🚀 RAG ile Hikayemi Oluştur!
+                    🚀 Hikayemi Oluştur!
                 </button>
             </form>
 
             <div class="loading" id="loading">
                 <div class="loading-spinner"></div>
-                <p>RAG sistemi hikayeni oluşturuyor... Bu biraz zaman alabilir! ⏳</p>
+                <p>Hikayen oluşturuluyor... Bu biraz zaman alabilir! ⏳</p>
             </div>
 
             <div class="error-message" id="errorMessage"></div>
@@ -416,23 +420,12 @@
             <h2 class="result-title" id="resultTitle"></h2>
             <div class="result-content" id="resultContent"></div>
         </div>
-
-        <!-- Recent Stories Section -->
-        <div class="recent-stories">
-            <h2>📚 Son Hikayeler</h2>
-            <div id="recentStories">
-                <div class="loading">
-                    <div class="loading-spinner"></div>
-                    <p>Hikayeler yükleniyor...</p>
-                </div>
-            </div>
-        </div>
     </div>
 
     <script src="config.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('ragStoryForm');
+            const form = document.getElementById('freeWriterForm');
             const submitBtn = document.getElementById('submitBtn');
             const loading = document.getElementById('loading');
             const resultContainer = document.getElementById('resultContainer');
@@ -440,9 +433,6 @@
             const resultContent = document.getElementById('resultContent');
             const errorMessage = document.getElementById('errorMessage');
             const successMessage = document.getElementById('successMessage');
-
-            // Load recent stories on page load
-            loadRecentStories();
 
             form.addEventListener('submit', async function(e) {
                 e.preventDefault();
@@ -459,11 +449,15 @@
                 // Get form data
                 const formData = new FormData(form);
                 const data = {
+                    name: formData.get('name'),
+                    age: parseInt(formData.get('age')),
+                    gender: formData.get('gender'),
+                    genre: formData.get('genre'),
                     prompt: formData.get('prompt')
                 };
 
                 try {
-                    const response = await fetch(API_ENDPOINTS.CREATE_STORY_RAG, {
+                    const response = await fetch(API_ENDPOINTS.CREATE_STORY_FREE, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -489,18 +483,15 @@
                     }
 
                     // Show success
-                    resultTitle.textContent = result.title || 'RAG Hikayen Hazır! 🎉';
+                    resultTitle.textContent = result.title || 'Hikayen Hazır! 🎉';
                     resultContent.textContent = result.content;
                     resultContainer.style.display = 'block';
                     
                     // Scroll to result
                     resultContainer.scrollIntoView({ behavior: 'smooth' });
                     
-                    successMessage.textContent = 'RAG sistemi ile hikayen başarıyla oluşturuldu!';
+                    successMessage.textContent = 'Hikayen başarıyla oluşturuldu!';
                     successMessage.style.display = 'block';
-
-                    // Reload recent stories
-                    loadRecentStories();
                 } catch (error) {
                     console.error('Error:', error);
                     errorMessage.textContent = `Hata: ${error.message}`;
@@ -513,53 +504,17 @@
             });
 
             // Add some fun interactions
-            const textarea = document.getElementById('prompt');
-            textarea.addEventListener('focus', function() {
-                this.style.transform = 'scale(1.01)';
-            });
-            
-            textarea.addEventListener('blur', function() {
-                this.style.transform = 'scale(1)';
+            const inputs = document.querySelectorAll('input, select, textarea');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.style.transform = 'scale(1.02)';
+                });
+                
+                input.addEventListener('blur', function() {
+                    this.style.transform = 'scale(1)';
+                });
             });
         });
-
-        // Load recent stories
-        async function loadRecentStories() {
-            try {
-                const response = await fetch(API_ENDPOINTS.GET_ALL_STORIES);
-                const recentStoriesDiv = document.getElementById('recentStories');
-
-                if (response.ok) {
-                    const stories = await response.json();
-                    
-                    if (stories.length === 0) {
-                        recentStoriesDiv.innerHTML = `
-                            <div class="empty-stories">
-                                <div class="icon">📚</div>
-                                <h3>Henüz hiç hikaye oluşturulmamış</h3>
-                                <p>Yukarıdaki formu kullanarak ilk hikayeyi oluşturabilirsin!</p>
-                            </div>`;
-                        return;
-                    }
-
-                    // Show last 5 stories
-                    const recentStories = stories.slice(0, 5);
-                    recentStoriesDiv.innerHTML = recentStories.map(story => `
-                        <div class="story-card">
-                            <h3>${story.title}</h3>
-                            <p>Oluşturulma: ${new Date(story.created_at).toLocaleDateString('tr-TR')}</p>
-                            <a href="story.html?id=${story.id}" class="story-link">Hikayeyi Görüntüle</a>
-                        </div>
-                    `).join('');
-                } else {
-                    throw new Error('Hikayeler yüklenemedi');
-                }
-            } catch (error) {
-                console.error('Error loading stories:', error);
-                document.getElementById('recentStories').innerHTML = 
-                    `<div class="error-message" style="display: block;">Hikayeler yüklenirken bir hata oluştu: ${error.message}</div>`;
-            }
-        }
     </script>
 </body>
 </html> 

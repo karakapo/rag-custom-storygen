@@ -26,7 +26,8 @@ def get_embedding(text):
 collection_name="story_companents"
 
 # Koleksiyon yoksa oluştur
-if not client.collection_exists(collection_name):
+existing_collections = [col.name for col in client.get_collections().collections]
+if collection_name not in existing_collections:
     client.create_collection(
         collection_name=collection_name,
         vectors_config={"size": 384, "distance": "Cosine"},
