@@ -42,7 +42,7 @@
                 <!-- Son Hikayeler -->
                 <div class="card shadow mt-4">
                     <div class="card-body">
-                        <h3 class="card-title mb-4">Son Hikayelerim</h3>
+                        <h3 class="card-title mb-4">Son Hikayeler</h3>
                         <div id="recentStories">
                             <div class="text-center">
                                 <div class="spinner-border text-primary" role="status">
@@ -57,14 +57,11 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/auth.js"></script>
     <script src="js/navbar.js"></script>
     <script src="js/stories.js"></script>
     <script>
-        // Sayfa yüklendiğinde authentication kontrolü
-        document.addEventListener('DOMContentLoaded', async () => {
-            if (!auth.requireAuth()) return;
-
+        // Sayfa yüklendiğinde
+        document.addEventListener('DOMContentLoaded', () => {
             // Son hikayeleri yükle
             loadRecentStories();
 
@@ -84,34 +81,25 @@
                         createStoryButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Hikaye Oluşturuluyor...';
                         promptInput.disabled = true;
 
-                        const user = await auth.getCurrentUser();
-                        if (!user) {
-                            throw new Error('Kullanıcı bilgisi alınamadı');
-                        }
-
                         console.log('Story oluşturma isteği gönderiliyor...');
                         console.log('İstek detayları:', {
                             url: '/story/create',
                             method: 'POST',
                             headers: {
-                                ...auth.getAuthHeaders(),
                                 'Content-Type': 'application/json'
                             },
                             body: {
-                                prompt: promptInput.value,
-                                user_id: user.id
+                                prompt: promptInput.value
                             }
                         });
 
                         const response = await fetch('http://localhost:8000/story/create', {
                             method: 'POST',
                             headers: {
-                                ...auth.getAuthHeaders(),
                                 'Content-Type': 'application/json'
                             },
                             body: JSON.stringify({
-                                prompt: promptInput.value,
-                                user_id: user.id
+                                prompt: promptInput.value
                             }),
                             credentials: 'include'
                         });
@@ -154,12 +142,8 @@
         // Son hikayeleri yükle
         async function loadRecentStories() {
             try {
-                const user = await auth.getCurrentUser();
-                if (!user) return;
-
                 console.log('Son hikayeler yükleniyor...');
-                const response = await fetch(`http://localhost:8000/user/${user.id}/stories`, {
-                    headers: auth.getAuthHeaders(),
+                const response = await fetch(`http://localhost:8000/stories`, {
                     credentials: 'include'
                 });
 
@@ -180,8 +164,8 @@
                                 <div class="mb-3">
                                     <i class="bi bi-book" style="font-size: 2.5rem; color: #6c757d;"></i>
                                 </div>
-                                <h5 class="text-muted mb-3">Henüz hiç hikaye oluşturmadınız</h5>
-                                <p class="text-muted">Yukarıdaki formu kullanarak ilk hikayenizi oluşturabilirsiniz</p>
+                                <h5 class="text-muted mb-3">Henüz hiç hikaye oluşturulmamış</h5>
+                                <p class="text-muted">Yukarıdaki formu kullanarak ilk hikayeyi oluşturabilirsiniz</p>
                             </div>`;
                         return;
                     }
@@ -199,15 +183,6 @@
                             </div>
                         </div>
                     `).join('');
-
-                    // Tüm hikayeleri görüntüle linki
-                    if (stories.length > 5) {
-                        recentStoriesDiv.innerHTML += `
-                            <div class="text-center mt-3">
-                                <a href="/profile.html" class="btn btn-outline-primary">Tüm Hikayelerimi Görüntüle</a>
-                            </div>
-                        `;
-                    }
                 } else {
                     throw new Error('Hikayeler yüklenemedi');
                 }

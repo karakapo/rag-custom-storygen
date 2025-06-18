@@ -1,55 +1,16 @@
-from pydantic import BaseModel, Field, EmailStr
+from pydantic import BaseModel, Field
 from typing import List, Optional, Dict
 from datetime import datetime
 from enum import Enum
 
-class UserRole(str, Enum):
-    ADMIN = "admin"
-    USER = "user"
-    EDITOR = "editor"
-
-class UserBase(BaseModel):
-    username: str
-    email: str
-    role: UserRole = UserRole.USER
-
-class UserCreate(BaseModel):
-    username: str
-    email: EmailStr
-    password: str
-
-class UserLogin(BaseModel):
-    email: EmailStr
-    password: str
-
-class Token(BaseModel):
-    access_token: str
-    token_type: str
-
-class TokenData(BaseModel):
-    email: Optional[str] = None
-    user_id: Optional[int] = None
-
-class UserResponse(BaseModel):
-    id: int
-    username: str
-    email: EmailStr
-    role: str
-    created_at: datetime
-
-    class Config:
-        from_attributes = True
-
 class StoryRequest(BaseModel):
     prompt: str = Field(..., description="Hikaye oluşturma için prompt")
-    user_id: int = Field(..., description="Hikayeyi oluşturan kullanıcının ID'si")
 
 class StoryResponse(BaseModel):
     id: int
     prompt: str
     content: str
     title: str
-    user_id: int
     created_at: datetime
     published_at: Optional[datetime] = None
 
@@ -60,17 +21,6 @@ class HealthResponse(BaseModel):
     status: str
     services: dict
     timestamp: datetime
-
-# Kullanıcı giriş isteği için ayrı model
-# class UserLoginRequest(BaseModel):
-#     username: str
-#     password: str
-
-# Kullanıcı yanıtı
-# class UserResponse(BaseModel):
-#     message: str
-#     data: Optional[dict] = None
-#     error: Optional[str] = None
 
 # Prompt optimize istek/yanıtı (varsa kullanılır)
 class PromptRequest(BaseModel):
@@ -97,11 +47,6 @@ class Story(StoryBase):
     content: str
     created_at: datetime
     updated_at: datetime
-
-# Çakışan StoryResponse tanımı kaldırıldı. Eğer farklı bir amaç içinse yeniden adlandırılabilir.
-# class StoryResponse(BaseModel):
-#     optimized_prompt: str
-#     story: str
 
 class StoryComponentType(str, Enum):
     MAIN_CHARACTER = "main_character"

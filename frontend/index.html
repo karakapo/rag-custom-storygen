@@ -30,7 +30,6 @@
                 </p>
                 <div class="hero-buttons">
                     <a href="create.html" class="btn btn-primary btn-lg" id="createStoryBtn">Hikaye Oluştur</a>
-                    <a href="register.html" class="btn btn-outline btn-lg" id="registerBtn">Ücretsiz Başla</a>
                 </div>
             </div>
             <div class="hero-image">
@@ -81,21 +80,16 @@
             <div class="steps-grid">
                 <div class="step-card">
                     <div class="step-number">1</div>
-                    <h4>Kayıt Olun</h4>
-                    <p>Ücretsiz hesap oluşturun</p>
-                </div>
-                <div class="step-card">
-                    <div class="step-number">2</div>
                     <h4>Hikaye İsteği</h4>
                     <p>Hikayenizin konusunu yazın</p>
                 </div>
                 <div class="step-card">
-                    <div class="step-number">3</div>
+                    <div class="step-number">2</div>
                     <h4>Hikaye Oluştur</h4>
                     <p>Yapay zeka hikayenizi oluştursun</p>
                 </div>
                 <div class="step-card">
-                    <div class="step-number">4</div>
+                    <div class="step-number">3</div>
                     <h4>Paylaşın</h4>
                     <p>Hikayenizi kaydedin ve paylaşın</p>
                 </div>
@@ -119,7 +113,6 @@
                     <ul>
                         <li><a href="/">Ana Sayfa</a></li>
                         <li><a href="/create.html">Hikaye Oluştur</a></li>
-                        <li><a href="/profile.html">Profilim</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
@@ -135,33 +128,10 @@
         </div>
     </footer>
 
-    <script src="js/auth.js"></script>
     <script src="js/navbar.js"></script>
     <script>
         // Sayfa özel işlemleri
-        document.addEventListener('DOMContentLoaded', async () => {
-            const createStoryBtn = document.getElementById('createStoryBtn');
-            const registerBtn = document.getElementById('registerBtn');
-
-            try {
-                const response = await fetch('/api/auth/check', {
-                    credentials: 'include'
-                });
-                const data = await response.json();
-                
-                if (data.authenticated) {
-                    createStoryBtn.href = 'create.html';
-                    registerBtn.style.display = 'none';
-                } else {
-                    createStoryBtn.href = 'login.html';
-                    registerBtn.style.display = 'inline-block';
-                }
-            } catch (error) {
-                console.error('Auth check error:', error);
-                createStoryBtn.href = 'login.html';
-                registerBtn.style.display = 'inline-block';
-            }
-
+        document.addEventListener('DOMContentLoaded', () => {
             // Flash messages
             const flashMessages = document.getElementById('flash-messages');
             const urlParams = new URLSearchParams(window.location.search);

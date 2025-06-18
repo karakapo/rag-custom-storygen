@@ -43,39 +43,9 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/js/auth.js"></script>
     <script>
-        // Sayfa yüklendiğinde butonları kontrol et
-        async function updateAuthButtons() {
-            const authButtons = document.getElementById('authButtons');
-            const userButtons = document.getElementById('userButtons');
-
-            try {
-                // Authentication durumunu kontrol et
-                const isAuthenticated = await auth.isAuthenticated();
-                
-                if (isAuthenticated) {
-                    // Kullanıcı giriş yapmışsa
-                    authButtons.style.display = 'none';
-                    userButtons.style.display = 'flex';
-                    // Hikaye detaylarını yükle
-                    loadStoryDetails();
-                } else {
-                    // Kullanıcı giriş yapmamışsa
-                    authButtons.style.display = 'flex';
-                    userButtons.style.display = 'none';
-                    // Giriş sayfasına yönlendir
-                    window.location.href = '/login.html';
-                }
-            } catch (error) {
-                console.error('Auth check error:', error);
-                // Hata durumunda giriş sayfasına yönlendir
-                window.location.href = '/login.html';
-            }
-        }
-
-        // Sayfa yüklendiğinde butonları güncelle
-        document.addEventListener('DOMContentLoaded', updateAuthButtons);
+        // Sayfa yüklendiğinde hikaye detaylarını yükle
+        document.addEventListener('DOMContentLoaded', loadStoryDetails);
 
         // Hikaye detaylarını yükle
         async function loadStoryDetails() {
@@ -89,9 +59,7 @@
                 }
 
                 // Hikaye detaylarını getir
-                const response = await fetch(`http://localhost:8000/story/${storyId}`, {
-                    headers: await auth.getAuthHeaders()
-                });
+                const response = await fetch(`http://localhost:8000/story/${storyId}`);
 
                 if (!response.ok) {
                     throw new Error('Hikaye detayları alınamadı');
@@ -116,8 +84,7 @@
 
                     try {
                         const deleteResponse = await fetch(`http://localhost:8000/story/${storyId}`, {
-                            method: 'DELETE',
-                            headers: await auth.getAuthHeaders()
+                            method: 'DELETE'
                         });
 
                         if (!deleteResponse.ok) {
@@ -125,7 +92,7 @@
                         }
 
                         alert('Hikaye başarıyla silindi');
-                        window.location.href = 'profile.html';
+                        window.location.href = 'create.html';
                     } catch (error) {
                         console.error('Error:', error);
                         alert('Hikaye silinirken bir hata oluştu: ' + error.message);
