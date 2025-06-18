@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RAG İle Hikaye Oluşturucu</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Sans+Pro:wght@300;400;600;700&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
     <style>
         :root {
             --primary-pink: #FF69B4;
@@ -26,8 +27,7 @@
         }
 
         body {
-            font-family: 'Fredoka', sans-serif;
-            background: linear-gradient(135deg, var(--light-pink) 0%, var(--light-green) 100%);
+            font-family: 'Inter', 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             min-height: 100vh;
             color: var(--text-dark);
         }
@@ -44,14 +44,16 @@
         }
 
         .header h1 {
+            font-family: 'Fredoka', sans-serif;
             font-size: 3rem;
-            font-weight: 700;
+            font-weight: 600;
             color: var(--primary-pink);
             margin-bottom: 10px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
 
         .header p {
+            font-family: 'Inter', sans-serif;
             font-size: 1.3rem;
             color: var(--text-dark);
             opacity: 0.8;
@@ -73,6 +75,7 @@
             display: inline-block;
             transition: all 0.3s ease;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            font-family: 'Inter', sans-serif;
         }
 
         .back-button:hover {
@@ -89,6 +92,7 @@
         }
 
         .form-title {
+            font-family: 'Fredoka', sans-serif;
             font-size: 2rem;
             font-weight: 600;
             color: var(--primary-pink);
@@ -101,6 +105,7 @@
         }
 
         .form-group label {
+            font-family: 'Inter', sans-serif;
             font-size: 1.2rem;
             font-weight: 600;
             margin-bottom: 10px;
@@ -115,7 +120,7 @@
             border: 3px solid var(--light-pink);
             border-radius: 20px;
             font-size: 1.1rem;
-            font-family: 'Fredoka', sans-serif;
+            font-family: 'Inter', sans-serif;
             resize: vertical;
             transition: all 0.3s ease;
             background: var(--text-light);
@@ -142,6 +147,7 @@
             max-width: 300px;
             margin: 0 auto;
             display: block;
+            font-family: 'Inter', sans-serif;
         }
 
         .submit-button:hover {
@@ -186,14 +192,16 @@
         }
 
         .result-title {
+            font-family: 'Fredoka', sans-serif;
             font-size: 2rem;
-            font-weight: 700;
+            font-weight: 600;
             color: var(--primary-green);
             margin-bottom: 20px;
             text-align: center;
         }
 
         .result-content {
+            font-family: 'Inter', sans-serif;
             font-size: 1.1rem;
             line-height: 1.8;
             color: var(--text-dark);
@@ -355,6 +363,21 @@
             50% { transform: translateY(-20px) rotate(180deg); }
             100% { transform: translateY(0px) rotate(360deg); }
         }
+
+        .hero-container {
+            background: rgba(255,255,255,0.97);
+            border-radius: 30px;
+            box-shadow: 0 10px 32px rgba(0,0,0,0.10);
+            padding: 40px 24px 32px 24px;
+            margin: 40px auto 32px auto;
+            max-width: 900px;
+        }
+        @media (max-width: 768px) {
+            .hero-container {
+                padding: 20px 8px 16px 8px;
+                margin: 20px 0 20px 0;
+            }
+        }
     </style>
 </head>
 <body>
@@ -368,30 +391,32 @@
     <a href="index.html" class="back-button">← Geri Dön</a>
 
     <div class="container">
-        <div class="header">
-            <h1>🤖 RAG İle Hikaye Oluşturucu</h1>
-            <p>Yapay zeka ile akıllı hikaye oluşturucu! Senin fikirlerini alıp harika hikayeler yazar.</p>
-        </div>
-
-        <!-- Story History Button -->
-        <div style="text-align: center; margin: 20px 0 30px 0;">
-            <a href="story-history.html" style="
-                background: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-yellow) 100%);
-                color: var(--text-light);
-                padding: 12px 25px;
-                border-radius: 25px;
-                text-decoration: none;
-                font-weight: 600;
-                display: inline-block;
-                transition: all 0.3s ease;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            " onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
-                📚 Hikaye Geçmişini Görüntüle
-            </a>
+        <!-- Hero Section -->
+        <div class="hero-container">
+            <div class="header">
+                <h1>🤖 RAG İle Hikaye Oluşturucu</h1>
+                <p>Yapay zeka ile akıllı hikaye oluşturucu! Senin fikirlerini alıp harika hikayeler yazar.</p>
+            </div>
+            <!-- Story History Button -->
+            <div style="text-align: center; margin: 20px 0 30px 0;">
+                <a href="story-history.html" style="
+                    background: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-yellow) 100%);
+                    color: var(--text-light);
+                    padding: 12px 25px;
+                    border-radius: 25px;
+                    text-decoration: none;
+                    font-weight: 600;
+                    display: inline-block;
+                    transition: all 0.3s ease;
+                    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                " onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+                    📚 Hikaye Geçmişini Görüntüle
+                </a>
+            </div>
         </div>
 
         <div class="form-container">
-            <h2 class="form-title">Hikaye İsteğin</h2>
+            <h2 class="form-title">Hikaye</h2>
             <form id="ragStoryForm">
                 <div class="form-group">
                     <label for="prompt">💭 Hikaye İsteğin:</label>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StoryMaker - Çocuklar için Hikaye Oluşturucu</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Sans+Pro:wght@300;400;600;700&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/components/navbar.css">
     <link rel="stylesheet" href="css/components/footer.css">
@@ -31,8 +31,7 @@
         }
 
         body {
-            font-family: 'Fredoka', sans-serif;
-            background: linear-gradient(135deg, var(--light-pink) 0%, var(--light-green) 100%);
+            font-family: 'Inter', 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             min-height: 100vh;
             color: var(--text-dark);
         }
@@ -47,12 +46,13 @@
         .hero-section {
             text-align: center;
             padding: 60px 0;
-            background: linear-gradient(135deg, var(--primary-pink) 0%, var(--primary-green) 100%);
+            background: rgba(255, 255, 255, 0.9);
             border-radius: 30px;
             margin: 40px 0;
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             position: relative;
             overflow: hidden;
+            backdrop-filter: blur(10px);
         }
 
         .hero-section::before {
@@ -77,12 +77,14 @@
         }
 
         .hero-title {
-            font-size: 3.5rem;
-            font-weight: 700;
-            color: var(--text-light);
+            font-family: 'Fredoka', sans-serif;
+            font-size: 3.8rem;
+            font-weight: 600;
+            color: var(--text-dark);
             margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
             animation: bounce 2s infinite;
+            letter-spacing: 0.5px;
         }
 
         @keyframes bounce {
@@ -92,10 +94,12 @@
         }
 
         .hero-subtitle {
+            font-family: 'Inter', sans-serif;
             font-size: 1.5rem;
-            color: var(--text-light);
+            font-weight: 400;
+            color: var(--text-dark);
             margin-bottom: 40px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
         }
 
         /* Story Creation Buttons */
@@ -119,6 +123,7 @@
             position: relative;
             overflow: hidden;
             box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
         }
 
         .story-button::before {
@@ -142,13 +147,15 @@
         }
 
         .rag-button {
-            background: linear-gradient(135deg, var(--primary-pink) 0%, var(--secondary-pink) 100%);
-            color: var(--text-light);
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--text-dark);
+            border: 2px solid var(--primary-pink);
         }
 
         .free-button {
-            background: linear-gradient(135deg, var(--primary-green) 0%, var(--secondary-green) 100%);
-            color: var(--text-light);
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--text-dark);
+            border: 2px solid var(--primary-green);
         }
 
         .button-icon {
@@ -158,14 +165,18 @@
         }
 
         .button-title {
-            font-size: 1.8rem;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.7rem;
             font-weight: 600;
             margin-bottom: 15px;
             display: block;
+            letter-spacing: 0.3px;
         }
 
         .button-description {
+            font-family: 'Inter', sans-serif;
             font-size: 1.1rem;
+            font-weight: 400;
             opacity: 0.9;
             line-height: 1.5;
         }
@@ -177,11 +188,13 @@
         }
 
         .section-title {
-            font-size: 2.5rem;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2.6rem;
             font-weight: 600;
             color: var(--text-dark);
             margin-bottom: 50px;
             text-align: center;
+            letter-spacing: 0.5px;
         }
 
         .features-grid {
@@ -192,11 +205,13 @@
         }
 
         .feature-card {
-            background: var(--text-light);
+            background: rgba(255, 255, 255, 0.9);
             padding: 40px 30px;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             transition: transform 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .feature-card:hover {
@@ -210,14 +225,18 @@
         }
 
         .feature-card h3 {
+            font-family: 'Fredoka', sans-serif;
             font-size: 1.5rem;
             font-weight: 600;
             margin-bottom: 15px;
             color: var(--text-dark);
+            letter-spacing: 0.3px;
         }
 
         .feature-card p {
+            font-family: 'Inter', sans-serif;
             font-size: 1.1rem;
+            font-weight: 400;
             line-height: 1.6;
             color: #666;
         }
@@ -315,7 +334,7 @@
         <div class="story-creation-section">
             <a href="create.html" class="story-button rag-button">
                 <span class="button-icon">🤖</span>
-                <span class="button-title">RAG İle Hikaye Oluştur</span>
+                <span class="button-title">RAG ile Hikaye Oluştur</span>
                 <span class="button-description">
                     Yapay zeka'nın genişletilmiş fikir dünyası ile hikaye oluştur! 
                     Senin fikirlerini alıp harika hikayeler yazar.
@@ -335,11 +354,13 @@
         <!-- Story History Button -->
         <div style="text-align: center; margin: 40px 0;">
             <a href="story-history.html" class="story-button" style="
-                background: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-yellow) 100%);
-                color: var(--text-light);
+                background: rgba(255, 255, 255, 0.9);
+                color: var(--text-dark);
                 max-width: 300px;
                 margin: 0 auto;
                 display: inline-block;
+                border: 2px solid var(--accent-purple);
+                backdrop-filter: blur(10px);
             ">
                 <span class="button-icon">📚</span>
                 <span class="button-title">Hikayelerin</span>

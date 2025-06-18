@@ -72,12 +72,6 @@ body::before {
     display: none;
 }
 
-/* Story page specific style */
-body.story-page {
-    background-image: none;
-    background-color: white;
-}
-
 /* ===== TYPOGRAPHY ===== */
 h1, h2, h3, h4, h5, h6 {
     font-weight: 600;
