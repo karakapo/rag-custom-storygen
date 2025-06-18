@@ -1,11 +1,11 @@
-/* Button Styles */
+/* Button Styles - Updated to use base.css variables */
 .btn {
     display: inline-block;
     text-decoration: none;
     font-weight: 500;
     padding: 0.75rem 1.5rem;
     border-radius: var(--border-radius);
-    transition: all 0.3s ease;
+    transition: all var(--transition-normal);
     cursor: pointer;
     border: none;
     font-family: var(--font-family);
@@ -126,11 +126,11 @@
     background: var(--gradient-text);
     color: white;
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: all var(--transition-normal);
 }
 
 .btn-logout:hover {
     opacity: 0.9;
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(201, 138, 149, 0.3);
+    box-shadow: var(--shadow-md);
 } 

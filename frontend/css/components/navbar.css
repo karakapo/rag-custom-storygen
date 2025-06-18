@@ -1,14 +1,14 @@
-/* Navbar Styles */
+/* Navbar Styles - Updated to use base.css variables */
 .navbar {
     background-color: rgba(255, 255, 255, 0.95);
-    padding: 1rem 2rem;
+    padding: var(--spacing-md) var(--spacing-xl);
     box-shadow: var(--shadow-sm);
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: sticky;
     top: 0;
-    z-index: 1000;
+    z-index: var(--z-sticky);
 }
 
 .logo {
@@ -33,7 +33,7 @@
 /* Navbar Links */
 .nav-links {
     display: flex;
-    gap: 2rem;
+    gap: var(--spacing-xl);
     font-family: var(--font-family);
 }
 
@@ -42,7 +42,7 @@
     color: var(--primary-color);
     font-weight: 500;
     font-size: 1.1rem;
-    transition: all 0.3s ease;
+    transition: all var(--transition-normal);
 }
 
 .nav-links a:hover {
@@ -53,7 +53,7 @@
 /* Auth header for login/register pages */
 .auth-header {
     background-color: white;
-    padding: 1rem 2rem;
+    padding: var(--spacing-md) var(--spacing-xl);
     box-shadow: var(--shadow-sm);
     text-align: center;
 }
@@ -85,7 +85,7 @@
 .auth-buttons a {
     text-decoration: none;
     font-weight: 500;
-    transition: all 0.3s ease;
+    transition: all var(--transition-normal);
 }
 
 .login-btn {
@@ -133,7 +133,7 @@
 .user-avatar {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: var(--spacing-sm);
 }
 
 .avatar-circle {

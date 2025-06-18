@@ -1,11 +1,11 @@
-/* Index Page Styles */
+/* Index Page Styles - Updated to use base.css variables */
 .welcome-user {
     text-align: center;
-    padding: 2rem;
+    padding: var(--spacing-xl);
     background: rgba(255, 255, 255, 0.9);
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    margin: 2rem auto;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+    margin: var(--spacing-xl) auto;
     max-width: 600px;
 }
 
@@ -13,8 +13,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
-    margin-bottom: 1rem;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
 }
 
 .avatar-circle.large {
@@ -31,7 +31,7 @@
 .welcome-user p {
     color: #666;
     font-size: 1.1rem;
-    margin-top: 1rem;
+    margin-top: var(--spacing-md);
 }
 
 /* Arka plan illüstrasyonunu tek katmana indirgeme - Bu stil aslında style.css'de ama index sayfasında belirgin olabilir */
@@ -47,10 +47,10 @@
 .hero-section {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 2rem;
+    gap: var(--spacing-xl);
     align-items: center;
-    padding: 4rem 0;
-    margin-bottom: 4rem;
+    padding: var(--spacing-xxl) 0;
+    margin-bottom: var(--spacing-xxl);
 }
 
 .hero-content {
@@ -60,7 +60,7 @@
 .hero-content h1 {
     font-size: 3rem;
     font-weight: 700;
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--spacing-lg);
     background: var(--gradient-text);
     -webkit-background-clip: text;
     background-clip: text;
@@ -71,12 +71,12 @@
     font-size: 1.2rem;
     color: #666;
     line-height: 1.6;
-    margin-bottom: 2rem;
+    margin-bottom: var(--spacing-xl);
 }
 
 .hero-buttons {
     display: flex;
-    gap: 1rem;
+    gap: var(--spacing-md);
 }
 
 .hero-image {
@@ -94,9 +94,9 @@
 
 /* Features Section */
 .features-section {
-    padding: 4rem 0;
+    padding: var(--spacing-xxl) 0;
     background-color: #f8f9fa;
-    margin: 4rem 0;
+    margin: var(--spacing-xxl) 0;
     border-radius: var(--border-radius);
 }
 
@@ -104,23 +104,23 @@
     text-align: center;
     font-size: 2.5rem;
     font-weight: 700;
-    margin-bottom: 3rem;
+    margin-bottom: var(--spacing-xxl);
     color: #333;
 }
 
 .features-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    padding: 0 2rem;
+    gap: var(--spacing-xl);
+    padding: 0 var(--spacing-xl);
 }
 
 .feature-card {
     background: white;
-    padding: 2rem;
+    padding: var(--spacing-xl);
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-sm);
-    transition: transform 0.3s ease;
+    transition: transform var(--transition-normal);
 }
 
 .feature-card:hover {
@@ -136,7 +136,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--spacing-lg);
 }
 
 .feature-icon i {
@@ -147,7 +147,7 @@
 .feature-card h3 {
     font-size: 1.5rem;
     font-weight: 600;
-    margin-bottom: 1rem;
+    margin-bottom: var(--spacing-md);
     color: #333;
 }
 
@@ -158,24 +158,24 @@
 
 /* How It Works Section */
 .how-it-works-section {
-    padding: 4rem 0;
-    margin: 4rem 0;
+    padding: var(--spacing-xxl) 0;
+    margin: var(--spacing-xxl) 0;
 }
 
 .steps-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    padding: 0 2rem;
+    gap: var(--spacing-xl);
+    padding: 0 var(--spacing-xl);
 }
 
 .step-card {
     text-align: center;
-    padding: 2rem;
+    padding: var(--spacing-xl);
     background: white;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-sm);
-    transition: transform 0.3s ease;
+    transition: transform var(--transition-normal);
 }
 
 .step-card:hover {
@@ -194,13 +194,13 @@
     justify-content: center;
     font-size: 1.5rem;
     font-weight: 600;
-    margin: 0 auto 1.5rem;
+    margin: 0 auto var(--spacing-lg);
 }
 
 .step-card h4 {
     font-size: 1.3rem;
     font-weight: 600;
-    margin-bottom: 1rem;
+    margin-bottom: var(--spacing-md);
     color: #333;
 }
 
@@ -209,7 +209,7 @@
     line-height: 1.6;
 }
 
-/* Responsive adjustments */
+/* Responsive Design */
 @media (max-width: 992px) {
     .hero-section {
         grid-template-columns: 1fr;
@@ -217,7 +217,7 @@
     }
 
     .hero-content {
-        max-width: 100%;
+        order: 2;
     }
 
     .hero-buttons {
@@ -225,7 +225,7 @@
     }
 
     .hero-image {
-        order: -1;
+        order: 1;
     }
 
     .section-title {
@@ -245,11 +245,11 @@
     .features-grid,
     .steps-grid {
         grid-template-columns: 1fr;
-        padding: 0 1rem;
+        padding: 0 var(--spacing-lg);
     }
 
     .feature-card,
     .step-card {
-        padding: 1.5rem;
+        padding: var(--spacing-lg);
     }
 } 

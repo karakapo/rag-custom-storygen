@@ -1,13 +1,13 @@
-/* Form Styles */
+/* Form Styles - Updated to use base.css variables */
 .form-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--spacing-lg);
 }
 
 .form-group label {
     display: block;
     color: #333;
     font-weight: 500;
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--spacing-sm);
 }
 
 .form-control {
@@ -18,7 +18,7 @@
     font-size: 1rem;
     font-family: var(--font-family);
     background: white;
-    transition: all 0.3s ease;
+    transition: all var(--transition-normal);
 }
 
 .form-control:focus {
@@ -44,7 +44,7 @@
     display: none;
     color: #dc3545;
     font-size: 0.875rem;
-    margin-top: 0.25rem;
+    margin-top: var(--spacing-xs);
 }
 
 .is-invalid ~ .invalid-feedback {
@@ -93,8 +93,8 @@ select.form-control {
 .form-check {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 0.5rem;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
 }
 
 .form-check-input {
@@ -123,7 +123,7 @@ select.form-control {
 /* Form help text */
 .form-text {
     display: block;
-    margin-top: 0.25rem;
+    margin-top: var(--spacing-xs);
     font-size: 0.875rem;
     color: #666;
 }
@@ -132,7 +132,7 @@ select.form-control {
 .form-actions {
     display: flex;
     gap: 1rem;
-    margin-top: 2rem;
+    margin-top: var(--spacing-xl);
 }
 
 /* Responsive adjustments */
