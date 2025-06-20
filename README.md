@@ -46,7 +46,57 @@ Ayrıca model eğitimi gerektirmeden anlamlı çıktılar üretmeye olanak sağl
 ---
 
 ## 🧩 Karşılaşılan Zorluklar
+## proje aşamaları 
+- llm'e istek gönderek
+    - bu fazla basit ve yüzeysel hikayeler yazıyordu
+- promt omptimzations
+    - kullanıcıdan alınan promtu optimize edip yine llme vermeyi denedim kayda değer bir değişiklik olmadı ama ilk halinden iyiydi
+- İlk rag denemesi
+     -her bir promtun içinden önceden belirlenen katogoriler çıkartırlıp vectör dbde aranması, parelel search ile . burda promttan katagori içeriklerini çıkama işemi yeterince iyi çalışmadı
+- Rag- Bütün promtu alıp bütün katogorilerde ayrı ayrı serach yapamak ve 2.sıradaki sistemide seçenek olarak eklemek
+    - üsteki şeyi açıkla
 
+
+## 🚀 Proje Gelişim Süreci
+
+1️⃣ **Doğrudan LLM'e İstek Gönderme**  
+➡️  
+- Kullanıcı promptu doğrudan LLM'e gönderiliyordu.  
+- ✔️ Basit bir başlangıç sağladı.  
+- ❌ Ancak sonuçlar yüzeysel, tutarsız ve yaratıcılıktan uzaktı.
+
+---
+
+2️⃣ **Prompt Optimizasyonu**  
+➡️  
+- Kullanıcıdan alınan girdilere yapısal eklemeler yapılarak LLM’e daha zengin promptlar verildi.  
+- ✔️ Tutarlılık az da olsa arttı.  
+- ❌ Fakat içerik hâlâ sınırlı düzeyde gelişmişti. Beklenen etkiyi yaratmadı.
+
+---
+
+3️⃣ **İlk RAG Denemesi**  
+➡️  
+- Promptun içinden 8 kategoriye ait içerikleri ayıklayıp, her birini ayrı ayrı vektör veritabanında aratmak hedeflendi.  
+- ✔️ Kategori bazlı yapı kurulmaya başlandı.  
+- ❌ Ancak prompttan anlamlı kategori çıkarımı istikrarsızdı.  
+- ❌ Sistem kararsız çalıştı, hataya çok açıktı.
+
+---
+
+4️⃣ **Geliştirilmiş RAG Sistemi**  
+➡️  
+- Artık kullanıcı promptu bütün olarak alınarak, her bir kategori için **bağımsız semantik arama** yapılmaya başlandı.  
+- ✔️ Parçalama hataları ortadan kalktı.  
+- ✔️ Tutarlılık ve kontrol seviyesi ciddi oranda arttı.  
+- ✔️ Her kategori için vektör veritabanından en yakın 3 örnek alınıp biri rastgele seçildi.  
+- ➕ Önceki sistem (prompt parçalama) de alternatif olarak korunarak çoklu strateji geliştirildi.
+
+---
+
+🟢 **Sonuç:**
+- Model eğitimi yapmadan yaratıcı ve kontrollü hikaye üretimi mümkün hâle geldi.
+- RAG sistemi ile hem esneklik hem yapılandırılmış çıktı sağlandı.
 
 
 ---
