@@ -38,20 +38,16 @@ Ayrıca model eğitimi gerektirmeden anlamlı çıktılar üretmeye olanak sağl
 ## 🛠️ Teknoloji Yığını (Tech Stack)
 
 - **Backend:** FastAPI
-- **Frontend:** Basit HTML/CSS + JavaScript (ileride React'e geçilecek)
+- **Frontend:** Basit HTML/CSS + JavaScript (Yapay zeka destekli ide ile yapıldı)
 - **Vector DB:** Qdrant
-- **LLM API:** Google Gemini (yakında OpenAI desteği de eklenebilir)
-- **Authentication:** Supabase (planlanıyor)
+- **LLM API:** Google Gemini 
 - **Veri İşleme:** Python + LangChain
 
 ---
 
 ## 🧩 Karşılaşılan Zorluklar
 
-- Vektör veritabanına uygun veri örnekleri üretmek ve kategorilere doğru şekilde ayırmak zaman aldı.
-- Farklı promptlara rağmen anlamlı sonuçlar verecek bir örnek yapısı kurmak zordu.
-- LLM'in bazen verilen bileşenleri tam olarak takip etmemesi (hallucination riski).
-- Prompt mühendisliği ile yaratıcı ama kontrollü çıktılar elde etme denemeleri zaman aldı.
+
 
 ---
 
@@ -61,5 +57,4 @@ Ayrıca model eğitimi gerektirmeden anlamlı çıktılar üretmeye olanak sağl
 - [ ] Vektör veritabanının daha zengin ve dengeli hale getirilmesi
 - [ ] Kullanıcının kendi karakterini oluşturabilme
 - [ ] Hikayeleri PDF olarak dışa aktarabilme
-- [ ] Hikayelerin seslendirilmesi (TTS entegrasyonu)
 
