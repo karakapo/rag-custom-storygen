@@ -45,35 +45,49 @@ Ayrıca model eğitimi gerektirmeden anlamlı çıktılar üretmeye olanak sağl
 
 ---
 
-## 🧩 Karşılaşılan Zorluklar
-## proje aşamaları 
-- llm'e istek gönderek
-    - bu fazla basit ve yüzeysel hikayeler yazıyordu
-- promt omptimzations
-    - kullanıcıdan alınan promtu optimize edip yine llme vermeyi denedim kayda değer bir değişiklik olmadı ama ilk halinden iyiydi
-- İlk rag denemesi
-     -her bir promtun içinden önceden belirlenen katogoriler çıkartırlıp vectör dbde aranması, parelel search ile . burda promttan katagori içeriklerini çıkama işemi yeterince iyi çalışmadı
-- Rag- Bütün promtu alıp bütün katogorilerde ayrı ayrı serach yapamak ve 2.sıradaki sistemide seçenek olarak eklemek
-    - üsteki şeyi açıkla
+## 🚀 Sistem Gelişim Süreci
 
+### 1. 🎯 Doğrudan LLM'e İstek Gönderme
+- Kullanıcıdan alınan prompt doğrudan LLM'e verildi.
+- **Sonuç:** Üretilen hikâyeler yüzeyseldi, anlam ve yapı açısından zayıftı.
 
-## 🚀 Proje Gelişim Süreci
+---
 
-## 🚀 Proje Gelişim Akışı
+### 2. ✍️ Prompt Optimizasyonu
+- Prompt yapısı kurallara göre yeniden biçimlendirildi ve LLM'e iletildi.
+- **İyileşme:** Dilsel kalite kısmen arttı, ama derinlik hâlâ sınırlıydı.
 
-## 🚀 Proje Gelişim Akışı
+---
 
-Doğrudan LLM'e İstek Gönderme  
-↓  
-Prompt Optimizasyonu  
-↓  
-İlk RAG Denemesi  
-↓  
-Geliştirilmiş RAG Sistemi  
-↓  
-Alternatif Strateji Eklenmesi
+### 3. 🔍 İlk RAG Denemesi
+- Prompt’tan tematik kategoriler (karakter, mekân, tema vs.) çıkarıldı.
+- Bu parçalar ayrı ayrı vektör veritabanında aratıldı.
+- **Problem:** Prompt'tan doğru kategori bilgisi çıkarımı zayıftı → sonuçlar alakasızlaştı.
 
+---
 
+### 4. 🧩 Geliştirilmiş RAG Sistemi
+- Prompt olduğu gibi kullanıldı; her kategori için **ayrı arama** yapıldı.
+- **Sonuç:** Her parça kendi semantik bağlamında içerik getirdi, hikâyeler çok daha tutarlı ve anlamlı hale geldi.
+
+---
+
+### 5. 🔀 Alternatif Strateji Eklenmesi
+- İlk (kategori çıkarımlı) yaklaşım ikinci seçenek olarak sistemde tutuldu.
+- Kullanıcıya iki strateji sunuldu:
+  - ✅ Tam prompt + çoklu kategori araması *(varsayılan ve güçlü sistem)*
+  - 🧪 Parçalı kategori çıkarımı + arama *(alternatif yöntem)*
+
+---
+
+## 📈 Süreç Akışı
+
+```mermaid
+graph TD
+    A[Doğrudan LLM'e İstek] --> B[Prompt Optimizasyonu]
+    B --> C[İlk RAG Denemesi]
+    C --> D[Geliştirilmiş RAG Sistemi]
+    D --> E[Alternatif Strateji Eklenmesi]
 
 
 ---
