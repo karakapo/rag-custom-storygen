@@ -59,44 +59,12 @@ Ayrıca model eğitimi gerektirmeden anlamlı çıktılar üretmeye olanak sağl
 
 ## 🚀 Proje Gelişim Süreci
 
-1️⃣ **Doğrudan LLM'e İstek Gönderme**  
-➡️  
-- Kullanıcı promptu doğrudan LLM'e gönderiliyordu.  
-- ✔️ Basit bir başlangıç sağladı.  
-- ❌ Ancak sonuçlar yüzeysel, tutarsız ve yaratıcılıktan uzaktı.
+graph TD
+    A[Doğrudan LLM'e İstek] --> B[Prompt Optimizasyonu]
+    B --> C[İlk RAG Denemesi]
+    C --> D[Geliştirilmiş RAG Sistemi]
+    D --> E[Alternatif Strateji Eklenmesi]
 
----
-
-2️⃣ **Prompt Optimizasyonu**  
-➡️  
-- Kullanıcıdan alınan girdilere yapısal eklemeler yapılarak LLM’e daha zengin promptlar verildi.  
-- ✔️ Tutarlılık az da olsa arttı.  
-- ❌ Fakat içerik hâlâ sınırlı düzeyde gelişmişti. Beklenen etkiyi yaratmadı.
-
----
-
-3️⃣ **İlk RAG Denemesi**  
-➡️  
-- Promptun içinden 8 kategoriye ait içerikleri ayıklayıp, her birini ayrı ayrı vektör veritabanında aratmak hedeflendi.  
-- ✔️ Kategori bazlı yapı kurulmaya başlandı.  
-- ❌ Ancak prompttan anlamlı kategori çıkarımı istikrarsızdı.  
-- ❌ Sistem kararsız çalıştı, hataya çok açıktı.
-
----
-
-4️⃣ **Geliştirilmiş RAG Sistemi**  
-➡️  
-- Artık kullanıcı promptu bütün olarak alınarak, her bir kategori için **bağımsız semantik arama** yapılmaya başlandı.  
-- ✔️ Parçalama hataları ortadan kalktı.  
-- ✔️ Tutarlılık ve kontrol seviyesi ciddi oranda arttı.  
-- ✔️ Her kategori için vektör veritabanından en yakın 3 örnek alınıp biri rastgele seçildi.  
-- ➕ Önceki sistem (prompt parçalama) de alternatif olarak korunarak çoklu strateji geliştirildi.
-
----
-
-🟢 **Sonuç:**
-- Model eğitimi yapmadan yaratıcı ve kontrollü hikaye üretimi mümkün hâle geldi.
-- RAG sistemi ile hem esneklik hem yapılandırılmış çıktı sağlandı.
 
 
 ---
