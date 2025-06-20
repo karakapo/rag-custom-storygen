@@ -49,7 +49,7 @@ Ayrıca model eğitimi gerektirmeden anlamlı çıktılar üretmeye olanak sağl
 
 - 🎯 Doğrudan LLM'e istek: Prompt direkt verildi → çıktı yüzeysel ve tutarsızdı.
 - ✍️ Prompt optimizasyonu: Yapılandırılmış promptlarla kısmi iyileşme sağlandı.
-- 🔍 İlk RAG denemesi: Prompt parçalanarak kategori bazlı arama yapıldı → eşleşmeler zayıf kaldı.
+- 🔍 İlk RAG denemesi: Prompt parçalanarak kategori bazlı paralel arama yapıldı → promtp parçalama zayıf kaldı.
 - 🧩 Gelişmiş RAG sistemi: Prompt bütün alındı, her kategoriye ayrı arama yapıldı → çıktı tutarlı ve anlamlı hale geldi.
 - 🔀 Alternatif strateji: Prompt optimizasyonu yöntemi opsiyonel bırakıldı, kullanıcı iki sistem arasında seçim yapabiliyor.
 
