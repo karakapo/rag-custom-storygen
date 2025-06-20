@@ -1,55 +1,65 @@
-# Storymaker 
+# 📖 Storymaker
 
-Yapay zeka yardımıyla çocuk hikayesş yazan bri uygulama.iki farklı şekilde hikaye yazılabilir. birinci yol serbet şekilde, bu sadece llmlere request atıyor. ikinci ve yenilikçi olan yol ise rag yardımıyla hikaye yazması,önceden hazılrlanmış 8 alt katogoride (Main_character,Environment,Main_conflict,Moral,Plot,character_goal,Genre,Final_type) hazırlanan veri embdenig yapıldıktan osnra vektör db ye kayıt ediliyor. kullanıcı promtu bu vectörel dbde aratma yaprıktan sonra her katagori için anlamsal olarak en yakın 3 tane örnek allınıp bunlar arasında rastgele seçim yapılarak son hikaye yazan llm'e 8 katagoriden seçtiğimiz örenkler gönderilir ve hikaye yazılır. bunu faydası llm'e model eğitmeden daha yaratıcı şeyler üretmesini sağlamak ve çıktıyı kotrol etme şasnızı arttırmak çocuklar için yapıldığından dolayı girilen girdiyi belli oranda tolare ediebilir çünkü vektör dbdeki örenklerle sınırlı.
+Storymaker, yapay zeka desteğiyle çocuklara yönelik hikayeler oluşturan bir uygulamadır. İki farklı şekilde hikaye üretimi mümkündür:
 
+1. **Serbest Mod:** Kullanıcının girdiği prompt, doğrudan bir LLM'e (Large Language Model) gönderilir ve modelden gelen yanıt hikaye olarak sunulur.
+2. **RAG Tabanlı Mod:** Daha yenilikçi ve kontrollü olan bu yöntemde, önceden hazırlanmış veri kullanılarak Retrieval-Augmented Generation (RAG) yöntemiyle hikaye üretilir.
 
-## Neden rag Kullandım 
+RAG modunda, hikayenin bileşenlerini oluşturan 8 farklı kategoriye ayrılmış örnekler vektör veritabanına (vector database) kaydedilir:
+- `Main_character`
+- `Environment`
+- `Main_conflict`
+- `Moral`
+- `Plot`
+- `Character_goal`
+- `Genre`
+- `Final_type`
 
-## tach stack 
+Kullanıcının verdiği prompt, bu vektör veritabanında her kategori için semantik olarak en yakın 3 örneği bulmak için sorgulanır. Ardından her kategoriden rastgele bir örnek seçilir ve bu 8 bileşen, LLM'e input olarak gönderilir. Model bu yapıdan yola çıkarak bütünsel bir hikaye üretir.
 
-## projeyi yaparken yaşadığım zorluklar
+Bu yöntemin avantajı:
+- LLM'e yeniden eğitim gerekmeden yaratıcı ve kontrollü içerik üretilmesi,
+- Çocuklara uygunluğu artırmak için çıktının daha kontrollü bir şekilde sınırlandırılması,
+- Kullanıcının verdiği girdinin belirli bir ölçüde esnetilerek örnek tabana uygun hale getirilmesi.
 
+---
 
+## 🤖 Neden RAG Kullandım?
 
-## eklenecek özellikler
+RAG, büyük dil modellerine daha anlamlı ve yönlendirilmiş veri sağlayarak:
+- Üretkenliği artırır,
+- Tutarlılığı korur,
+- Kullanıcı girdilerini toleranslı şekilde yorumlayabilir.
 
-- [ ] Kullanıcı Giriş/Çıkış eklenecek
-- [ ] Vectör Database geliştirilecek
-- [ ] Kullanıcıya özel kullanıcın oluşturğu karakterler eklemecek
+Ayrıca model eğitimi gerektirmeden anlamlı çıktılar üretmeye olanak sağlar. Bu, özellikle çocuklar için içerik üretirken güvenlik ve kalite açısından büyük avantaj sağlar.
 
+---
 
+## 🛠️ Teknoloji Yığını (Tech Stack)
 
+- **Backend:** FastAPI
+- **Frontend:** Basit HTML/CSS + JavaScript (ileride React'e geçilecek)
+- **Vector DB:** Qdrant
+- **LLM API:** Google Gemini (yakında OpenAI desteği de eklenebilir)
+- **Authentication:** Supabase (planlanıyor)
+- **Veri İşleme:** Python + LangChain
 
+---
 
+## 🧩 Karşılaşılan Zorluklar
 
+- Vektör veritabanına uygun veri örnekleri üretmek ve kategorilere doğru şekilde ayırmak zaman aldı.
+- Farklı promptlara rağmen anlamlı sonuçlar verecek bir örnek yapısı kurmak zordu.
+- LLM'in bazen verilen bileşenleri tam olarak takip etmemesi (hallucination riski).
+- Prompt mühendisliği ile yaratıcı ama kontrollü çıktılar elde etme denemeleri zaman aldı.
 
+---
 
-## How to Run
+## 🚧 Eklenecek Özellikler
 
-### Backend
-
-Navigate to the `backend` directory and run the application using Uvicorn:
-
-```bash
-cd backend
-# Ensure you have all necessary Python packages installed (e.g., pip install -r requirements.txt if you have one)
-# Make sure uvicorn is installed (e.g., pip install uvicorn)
-uvicorn main:app --reload
-```
-
-### Frontend
-
-1.  **Navigate to the `frontend` directory:**
-    ```bash
-    cd frontend
-    ```
-2.  **Open `index.html` in your web browser:**
-    *   You can usually do this by double-clicking the `index.html` file.
-3.  **Alternatively, use a live server (recommended for development):**
-    *   If you have Node.js installed, you can use a simple HTTP server:
-      ```bash
-npx http-server
-      ```
-    *   Or, many code editors (like VS Code) have live server extensions that you can use to serve the `frontend` directory.
-
+- [ ] Kullanıcı girişi ve oturum yönetimi
+- [ ] Vektör veritabanının daha zengin ve dengeli hale getirilmesi
+- [ ] Kullanıcının kendi karakterini oluşturabilme
+- [ ] Hikayeleri PDF olarak dışa aktarabilme
+- [ ] Hikayelerin seslendirilmesi (TTS entegrasyonu)
 
