@@ -12,6 +12,7 @@ from services.story_writer_with_rag import create_story
 from services.free_story_writer import write_free_story
 from rag.vectorstore import save_to_qdrant, client
 from schemas.schemas import StoryRequest,StoryResponse,StoryType as StoryTypeSchema
+from services.title_generator import generate_title
 
 load_dotenv()
 
@@ -51,14 +52,14 @@ async def story_create_with_rag(prompt: StoryRequest, session: Session = Depends
         session.add(story)
         session.commit()
 
-        # RAG kullanarak hikaye içeriğini oluştur
+       
         story_content = await create_story(prompt)
         
         
-        # İçeriği temizle ve hikayeyi güncelle
+        
         content = story_content["content"].strip()
-        # İçeriğin ilk birkaç kelimesinden varsayılan başlık oluştur
-        default_title = content.split('\n')[0][:50] + "..." if len(content) > 50 else content
+        
+        default_title = generate_title(prompt)
         
         story.title = default_title
         story.content = content
@@ -107,7 +108,7 @@ async def free_story_create(prompt: StoryRequest, session: Session = Depends(get
         # İçeriği temizle
         content = story_result["story"].strip()
         # İçeriğin ilk birkaç kelimesinden varsayılan başlık oluştur
-        default_title = content.split('\n')[0][:50] + "..." if len(content) > 50 else content
+        default_title = generate_title(prompt)
         
         # Hikayeyi veritabanına kaydet
         story = Story(
