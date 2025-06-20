@@ -10,7 +10,7 @@ env/
 ENV/
 env.bak/
 venv.bak/
-StoryMakerEnv/
+
 
 # Environment variables
 .env
