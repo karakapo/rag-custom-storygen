@@ -27,7 +27,7 @@ Bu yöntemin avantajı:
 ## 🤖 Neden RAG Kullandım?
 
 RAG, büyük dil modellerine daha anlamlı ve yönlendirilmiş veri sağlayarak:
-- Üretkenliği artırır,
+- Yaratıcılığı artırır,
 - Tutarlılığı korur,
 - Kullanıcı girdilerini toleranslı şekilde yorumlayabilir.
 
@@ -35,7 +35,7 @@ Ayrıca model eğitimi gerektirmeden anlamlı çıktılar üretmeye olanak sağl
 
 ---
 
-## 🛠️ Teknoloji Yığını (Tech Stack)
+## 🛠️ Tech Stack
 
 - **Backend:** FastAPI
 - **Frontend:** Basit HTML/CSS + JavaScript (Yapay zeka destekli ide ile yapıldı)
