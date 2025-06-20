@@ -47,11 +47,9 @@ Ayrıca model eğitimi gerektirmeden anlamlı çıktılar üretmeye olanak sağl
 
 ## 🚀 Sistem Gelişim Süreci
 
-── 🎯 Doğrudan LLM'e İstek Gönderme
-│
-├── Kullanıcıdan alınan prompt doğrudan LLM'e verildi.
-│   └─ Alt görev
-└── **Sonuç:** Üretilen hikâyeler yüzeyseldi, anlam ve yapı açısından zayıftı
+
+<pre> ``` ┌── 🎯 Doğrudan LLM'e İstek Gönderme│ ├──  Kullanıcıdan alınan prompt doğrudan LLM'e verildi.│ └─ Alt görev └── **Sonuç:** Üretilen hikâyeler yüzeyseldi, anlam ve yapı açısından zayıftı ``` </pre>
+
 
 ↓  
 
