@@ -47,32 +47,11 @@ Ayrıca model eğitimi gerektirmeden anlamlı çıktılar üretmeye olanak sağl
 
 ## 🚀 Sistem Gelişim Süreci
 
-
-<pre> ``` ┌── 🎯 Doğrudan LLM'e İstek Gönderme│ ├──  Kullanıcıdan alınan prompt doğrudan LLM'e verildi.│ └─ Alt görev └── **Sonuç:** Üretilen hikâyeler yüzeyseldi, anlam ve yapı açısından zayıftı ``` </pre>
-
-
-↓  
-
-#### ✍️ Prompt Optimizasyonu
-- Prompt yapısı kurallara göre yeniden biçimlendirildi ve LLM'e iletildi.
-- **İyileşme:** Dilsel kalite kısmen arttı, ama derinlik hâlâ sınırlıydı.
-
-↓  
-
-#### 🔍 İlk RAG Denemesi
-- Prompt’tan tematik kategoriler (karakter, mekân, tema vs.) çıkarıldı.
-- Bu parçalar ayrı ayrı vektör veritabanında aratıldı.
-- **Problem:** Prompt'tan doğru kategori bilgisi çıkarımı zayıftı → sonuçlar alakasızlaştı.
-
-#### 🧩 Geliştirilmiş RAG Sistemi
-- Prompt olduğu gibi kullanıldı; her kategori için **ayrı arama** yapıldı.
-- **Sonuç:** Her parça kendi semantik bağlamında içerik getirdi, hikâyeler çok daha tutarlı ve anlamlı hale geldi.
-- 
-#### 🔀 Alternatif Strateji Eklenmesi
-- İlk (kategori çıkarımlı) yaklaşım ikinci seçenek olarak sistemde tutuldu.
-- Kullanıcıya iki strateji sunuldu:
-  - ✅ Tam prompt + çoklu kategori araması *(varsayılan ve güçlü sistem)*
-  - 🧪 Parçalı kategori çıkarımı + arama *(alternatif yöntem)*
+- 🎯 Doğrudan LLM'e istek: Prompt direkt verildi → çıktı yüzeysel ve tutarsızdı.
+- ✍️ Prompt optimizasyonu: Yapılandırılmış promptlarla kısmi iyileşme sağlandı.
+- 🔍 İlk RAG denemesi: Prompt parçalanarak kategori bazlı arama yapıldı → eşleşmeler zayıf kaldı.
+- 🧩 Gelişmiş RAG sistemi: Prompt bütün alındı, her kategoriye ayrı arama yapıldı → çıktı tutarlı ve anlamlı hale geldi.
+- 🔀 Alternatif strateji: Prompt optimizasyonu yöntemi opsiyonel bırakıldı, kullanıcı iki sistem arasında seçim yapabiliyor.
 
 ### 📈 Süreç Akışı
 
