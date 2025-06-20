@@ -66,4 +66,47 @@ Ayrıca model eğitimi gerektirmeden anlamlı çıktılar üretmeye olanak sağl
 - [ ] Vektör veritabanının daha zengin ve dengeli hale getirilmesi
 - [ ] Kullanıcının kendi karakterini oluşturabilme
 - [ ] Hikayeleri PDF olarak dışa aktarabilme
+- [ ] Kullanıcıya özel yan karakter ekleme
+- [ ] Daha test edilebilir bir yapı kurmak
 
+---
+
+## ⚡️ Nasıl Çalıştırılır?
+
+### 1. Backend (FastAPI) Kurulumu ve Çalıştırılması
+
+```bash
+cd backend
+python -m venv venv
+# Windows:
+venv\Scripts\activate
+# Mac/Linux:
+# source venv/bin/activate
+
+pip install -r requirements.txt
+
+# Sunucuyu başlatın
+uvicorn main:app --reload
+```
+
+Varsayılan olarak FastAPI backend'i `http://127.0.0.1:8000` adresinde çalışacaktır.
+
+---
+
+### 2. Frontend (Statik HTML/JS) Kurulumu ve Çalıştırılması
+
+```bash
+cd frontend
+npm install
+npm start
+```
+
+Bu komutlar, frontend'i `http://localhost:3000` adresinde başlatır.
+
+---
+
+### 3. Notlar
+
+- Backend ve frontend'i aynı anda çalıştırmalısınız.
+- Gerekirse `.env` dosyası ile backend ayarlarını yapabilirsiniz.
+- Backend, hikaye üretimi için LLM API'lerini (ör. Google Gemini) kullanır; API anahtarınızı `.env` dosyasına eklemelisiniz.
