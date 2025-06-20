@@ -1,4 +1,28 @@
-# Storymaker
+# Storymaker 
+
+Yapay zeka yardımıyla çocuk hikayesş yazan bri uygulama.iki farklı şekilde hikaye yazılabilir. birinci yol serbet şekilde, bu sadece llmlere request atıyor. ikinci ve yenilikçi olan yol ise rag yardımıyla hikaye yazması,önceden hazılrlanmış 8 alt katogoride (Main_character,Environment,Main_conflict,Moral,Plot,character_goal,Genre,Final_type) hazırlanan veri embdenig yapıldıktan osnra vektör db ye kayıt ediliyor. kullanıcı promtu bu vectörel dbde aratma yaprıktan sonra her katagori için anlamsal olarak en yakın 3 tane örnek allınıp bunlar arasında rastgele seçim yapılarak son hikaye yazan llm'e 8 katagoriden seçtiğimiz örenkler gönderilir ve hikaye yazılır. bunu faydası llm'e model eğitmeden daha yaratıcı şeyler üretmesini sağlamak ve çıktıyı kotrol etme şasnızı arttırmak çocuklar için yapıldığından dolayı girilen girdiyi belli oranda tolare ediebilir çünkü vektör dbdeki örenklerle sınırlı.
+
+
+##Neden rag Kullandım 
+
+##tach stack 
+
+##projeyi yaparken yaşadığım zorluklar
+
+
+
+##eklenecek özellikler
+
+- [ ] Kullanıcı Giriş/Çıkış eklenecek
+- [ ] Vectör Database geliştirilecek
+- [ ] Kullanıcıya özel kullanıcın oluşturğu karakterler eklemecek
+- [ ] 
+
+
+
+
+
+
 
 ## How to Run
 
