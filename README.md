@@ -66,4 +66,5 @@ Ayrıca model eğitimi gerektirmeden anlamlı çıktılar üretmeye olanak sağl
 - [ ] Vektör veritabanının daha zengin ve dengeli hale getirilmesi
 - [ ] Kullanıcının kendi karakterini oluşturabilme
 - [ ] Hikayeleri PDF olarak dışa aktarabilme
+- [ ] Kullanıcıya özel hikaye içi yan karakter ekleme
 
