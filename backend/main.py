@@ -5,46 +5,31 @@ from sqlalchemy.orm import Session
 from typing import List, Optional
 from datetime import datetime, timedelta
 import time
-# Remove static files imports since we're making this a pure API
-# from fastapi.staticfiles import StaticFiles
-# from fastapi.responses import FileResponse
 
-# Local imports
-from database import db
-from models import Story, StoryType
+from db.database import db
+from db.models import Story, StoryType
 from services.story_writer_with_rag import create_story
 from services.free_story_writer import write_free_story
 from rag.vectorstore import save_to_qdrant, client
-from schemas.schemas import (
-    StoryRequest, 
-    StoryResponse,
-    StoryType as StoryTypeSchema
-)
+from schemas.schemas import StoryRequest,StoryResponse,StoryType as StoryTypeSchema
 
 load_dotenv()
+
 app = FastAPI()
 
-# CORS middleware ekle
+# CORS ayarları
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Production'da spesifik origin'leri belirtin
+    allow_origins=["*"],  # Gerekirse buraya frontend domainini ekleyin
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Remove static files mounting
-# app.mount("/static", StaticFiles(directory="frontend"), name="static")
-
-# Dependency
 def get_db():
     with db.get_session() as session:
         yield session
 
-#
-@app.get("/")
-async def health_check():
-    return {"status": "healthy", "message": "Storymaker API is running"}
 
 @app.post("/story/create/2", response_model=StoryResponse)
 async def story_create_with_rag(prompt: StoryRequest, session: Session = Depends(get_db)):
@@ -53,9 +38,9 @@ async def story_create_with_rag(prompt: StoryRequest, session: Session = Depends
     try:
         # Başlangıç hikaye kaydını oluştur
         story = Story(
-            author_id=1,  # Default user ID since auth is removed
             status="generating",
             story_type=StoryType.RAG,
+             author_id=1,
             original_prompt=prompt.prompt,
             generation_model="gemini-2.0-flash",
             generation_parameters={
@@ -69,8 +54,6 @@ async def story_create_with_rag(prompt: StoryRequest, session: Session = Depends
         # RAG kullanarak hikaye içeriğini oluştur
         story_content = await create_story(prompt)
         
-        # Hata ayıklama günlüğü
-        print("Hikaye içeriği alındı:", story_content)
         
         # İçeriği temizle ve hikayeyi güncelle
         content = story_content["content"].strip()
@@ -91,7 +74,8 @@ async def story_create_with_rag(prompt: StoryRequest, session: Session = Depends
             title=story.title,
             story_type=StoryTypeSchema.RAG,
             created_at=story.created_at,
-            published_at=story.published_at
+            published_at=story.published_at,
+            author_id=story.author_id
         )
 
     except Exception as e:
@@ -127,11 +111,11 @@ async def free_story_create(prompt: StoryRequest, session: Session = Depends(get
         
         # Hikayeyi veritabanına kaydet
         story = Story(
-            author_id=1,
             status="published",
             story_type=StoryType.FREE_WRITER,
             title=default_title,
             content=content,
+            author_id=1,
             original_prompt=prompt.prompt,
             generation_model="free_writer",
             generation_parameters={
@@ -153,7 +137,8 @@ async def free_story_create(prompt: StoryRequest, session: Session = Depends(get
             title=default_title,
             story_type=StoryTypeSchema.FREE_WRITER,
             created_at=story.created_at,
-            published_at=story.published_at
+            published_at=story.published_at,
+            author_id=story.author_id
         )
 
     except Exception as e:
@@ -207,7 +192,8 @@ async def get_all_stories(session: Session = Depends(get_db)):
             title=story.title,
             story_type=StoryTypeSchema(story.story_type.value),
             created_at=story.created_at,
-            published_at=story.published_at
+            published_at=story.published_at,
+            author_id=story.author_id
         )
         for story in stories
     ]

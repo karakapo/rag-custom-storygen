@@ -3,7 +3,7 @@ from pathlib import Path
 from rag.vectorstore import save_data
 
 def main():
-    # Get the path to data.json
+    
     data_path = Path(__file__).parent.parent / "data.json"
     
     print(f"Loading and embedding data from {data_path}...")

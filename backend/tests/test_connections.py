@@ -9,7 +9,7 @@ import os
 # Add parent directory to path to import our modules
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from database import DatabaseConnection
+from db.database import DatabaseConnection
 from rag.vectorstore import client as qdrant_client
 
 def test_postgres_connection():

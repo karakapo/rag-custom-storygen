@@ -22,6 +22,7 @@ class StoryResponse(BaseModel):
     story_type: StoryType
     created_at: datetime
     published_at: Optional[datetime] = None
+    author_id: int
 
     class Config:
         from_attributes = True
