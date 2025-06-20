@@ -1,35 +1,92 @@
-# Storymaker
+# 📖 Storymaker
 
-## How to Run
+Storymaker, yapay zeka desteğiyle çocuklara yönelik hikayeler oluşturan bir uygulamadır. İki farklı şekilde hikaye üretimi mümkündür:
 
-### Backend
+1. **Serbest Mod:** Kullanıcının girdiği prompt, doğrudan bir LLM'e (Large Language Model) gönderilir ve modelden gelen yanıt hikaye olarak sunulur.
+2. **RAG Tabanlı Mod:** Daha yenilikçi ve kontrollü olan bu yöntemde, önceden hazırlanmış veri kullanılarak Retrieval-Augmented Generation (RAG) yöntemiyle hikaye üretilir.
 
-Navigate to the `backend` directory and run the application using Uvicorn:
+RAG modunda, hikayenin bileşenlerini oluşturan 8 farklı kategoriye ayrılmış örnekler vektör veritabanına (vector database) kaydedilir:
+- `Main_character`
+- `Environment`
+- `Main_conflict`
+- `Moral`
+- `Plot`
+- `Character_goal`
+- `Genre`
+- `Final_type`
 
-```bash
-cd backend
-# Ensure you have all necessary Python packages installed (e.g., pip install -r requirements.txt if you have one)
-# Make sure uvicorn is installed (e.g., pip install uvicorn)
-uvicorn main:app --reload
-```
+Kullanıcının verdiği prompt, bu vektör veritabanında her kategori için semantik olarak en yakın 3 örneği bulmak için sorgulanır. Ardından her kategoriden rastgele bir örnek seçilir ve bu 8 bileşen, LLM'e input olarak gönderilir. Model bu yapıdan yola çıkarak bütünsel bir hikaye üretir.
 
-### Frontend
+Bu yöntemin avantajı:
+- LLM'e yeniden eğitim gerekmeden yaratıcı ve kontrollü içerik üretilmesi,
+- Çocuklara uygunluğu artırmak için çıktının daha kontrollü bir şekilde sınırlandırılması,
+- Kullanıcının verdiği girdinin belirli bir ölçüde esnetilerek örnek tabana uygun hale getirilmesi.
 
-1.  **Navigate to the `frontend` directory:**
-    ```bash
-    cd frontend
-    ```
-2.  **Open `index.html` in your web browser:**
-    *   You can usually do this by double-clicking the `index.html` file.
-3.  **Alternatively, use a live server (recommended for development):**
-    *   If you have Node.js installed, you can use a simple HTTP server:
-      ```bash
-npx http-server
-      ```
-    *   Or, many code editors (like VS Code) have live server extensions that you can use to serve the `frontend` directory.
+---
 
-## Application Description
+## 🤖 Neden RAG Kullandım?
 
-Bu uygulama, RAG (Retrieval Augmented Generation) sistemi kullanarak ve birden fazla Büyük Dil Modeli (LLM) entegre ederek çocuklar için hikayeler oluşturmayı amaçlar. RAG sisteminin kullanılmasının temel nedeni, LLM'lerin kendi başlarına sınırlı bilgiye sahip olmaları ve bu sistem sayesinde harici bir bilgi kaynağını etkin bir şekilde kullanabilmeleridir.
+RAG, büyük dil modellerine daha anlamlı ve yönlendirilmiş veri sağlayarak:
+- Üretkenliği artırır,
+- Tutarlılığı korur,
+- Kullanıcı girdilerini toleranslı şekilde yorumlayabilir.
 
-Uygulama, kullanıcının girdiği prompt (istek) içerisinden çeşitli hikaye bileşenlerini tanımlar. Bu bileşenler daha sonra bir vektör veritabanında aranır. Bulunan ilgili bileşenler, hikayeyi oluşturması için başka bir LLM'e girdi olarak verilir. 
+Ayrıca model eğitimi gerektirmeden anlamlı çıktılar üretmeye olanak sağlar. Bu, özellikle çocuklar için içerik üretirken güvenlik ve kalite açısından büyük avantaj sağlar.
+
+---
+
+## 🛠️ Teknoloji Yığını (Tech Stack)
+
+- **Backend:** FastAPI
+- **Frontend:** Basit HTML/CSS + JavaScript (Yapay zeka destekli ide ile yapıldı)
+- **Vector DB:** Qdrant
+- **LLM API:** Google Gemini 
+- **Veri İşleme:** Python + LangChain
+
+---
+
+## 🚀 Sistem Gelişim Süreci
+
+── 🎯 Doğrudan LLM'e İstek Gönderme
+│
+├── Kullanıcıdan alınan prompt doğrudan LLM'e verildi.
+│   └─ Alt görev
+└── **Sonuç:** Üretilen hikâyeler yüzeyseldi, anlam ve yapı açısından zayıftı
+
+↓  
+
+#### ✍️ Prompt Optimizasyonu
+- Prompt yapısı kurallara göre yeniden biçimlendirildi ve LLM'e iletildi.
+- **İyileşme:** Dilsel kalite kısmen arttı, ama derinlik hâlâ sınırlıydı.
+
+↓  
+
+#### 🔍 İlk RAG Denemesi
+- Prompt’tan tematik kategoriler (karakter, mekân, tema vs.) çıkarıldı.
+- Bu parçalar ayrı ayrı vektör veritabanında aratıldı.
+- **Problem:** Prompt'tan doğru kategori bilgisi çıkarımı zayıftı → sonuçlar alakasızlaştı.
+
+#### 🧩 Geliştirilmiş RAG Sistemi
+- Prompt olduğu gibi kullanıldı; her kategori için **ayrı arama** yapıldı.
+- **Sonuç:** Her parça kendi semantik bağlamında içerik getirdi, hikâyeler çok daha tutarlı ve anlamlı hale geldi.
+- 
+#### 🔀 Alternatif Strateji Eklenmesi
+- İlk (kategori çıkarımlı) yaklaşım ikinci seçenek olarak sistemde tutuldu.
+- Kullanıcıya iki strateji sunuldu:
+  - ✅ Tam prompt + çoklu kategori araması *(varsayılan ve güçlü sistem)*
+  - 🧪 Parçalı kategori çıkarımı + arama *(alternatif yöntem)*
+
+### 📈 Süreç Akışı
+
+[Doğrudan LLM'e İstek] --> [Prompt Optimizasyonu] --> [İlk RAG Denemesi] --> [Geliştirilmiş RAG Sistemi] --> [Alternatif Strateji Eklenmesi]
+
+
+---
+
+## 🚧 Eklenecek Özellikler
+
+- [ ] Kullanıcı girişi ve oturum yönetimi
+- [ ] Vektör veritabanının daha zengin ve dengeli hale getirilmesi
+- [ ] Kullanıcının kendi karakterini oluşturabilme
+- [ ] Hikayeleri PDF olarak dışa aktarabilme
+
