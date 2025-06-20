@@ -59,11 +59,33 @@ Ayrıca model eğitimi gerektirmeden anlamlı çıktılar üretmeye olanak sağl
 
 ## 🚀 Proje Gelişim Süreci
 
-graph TD
-    A[Doğrudan LLM'e İstek] --> B[Prompt Optimizasyonu]
-    B --> C[İlk RAG Denemesi]
-    C --> D[Geliştirilmiş RAG Sistemi]
-    D --> E[Alternatif Strateji Eklenmesi]
+## 🚀 Proje Gelişim Akışı
+
++-------------------------------+
+| Doğrudan LLM'e İstek         |
+| Basit ama yüzeysel çıktılar |
++-------------------------------+
+              ↓
++-------------------------------+
+| Prompt Optimizasyonu         |
+| Yapısal gelişim, sınırlı     |
++-------------------------------+
+              ↓
++-------------------------------+
+| İlk RAG Denemesi             |
+| Prompt içeriği → kategori    |
+| ayrıştırma, ama kararsız     |
++-------------------------------+
+              ↓
++-------------------------------+
+| Geliştirilmiş RAG Sistemi    |
+| Her kategoriye ayrı arama   |
++-------------------------------+
+              ↓
++-------------------------------+
+| Alternatif Strateji Eklendi |
+| Eski sistem opsiyonel kaldı |
++-------------------------------+
 
 
 
