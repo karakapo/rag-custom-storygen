@@ -61,31 +61,18 @@ Ayrıca model eğitimi gerektirmeden anlamlı çıktılar üretmeye olanak sağl
 
 ## 🚀 Proje Gelişim Akışı
 
-+-------------------------------+
-| Doğrudan LLM'e İstek         |
-| Basit ama yüzeysel çıktılar |
-+-------------------------------+
-              ↓
-+-------------------------------+
-| Prompt Optimizasyonu         |
-| Yapısal gelişim, sınırlı     |
-+-------------------------------+
-              ↓
-+-------------------------------+
-| İlk RAG Denemesi             |
-| Prompt içeriği → kategori    |
-| ayrıştırma, ama kararsız     |
-+-------------------------------+
-              ↓
-+-------------------------------+
-| Geliştirilmiş RAG Sistemi    |
-| Her kategoriye ayrı arama   |
-+-------------------------------+
-              ↓
-+-------------------------------+
-| Alternatif Strateji Eklendi |
-| Eski sistem opsiyonel kaldı |
-+-------------------------------+
+## 🚀 Proje Gelişim Akışı
+
+Doğrudan LLM'e İstek Gönderme  
+↓  
+Prompt Optimizasyonu  
+↓  
+İlk RAG Denemesi  
+↓  
+Geliştirilmiş RAG Sistemi  
+↓  
+Alternatif Strateji Eklenmesi
+
 
 
 
