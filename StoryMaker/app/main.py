@@ -10,7 +10,7 @@ from db.database import db
 from db.models import Story, StoryType
 from services.story_writer_with_rag import create_story
 from services.free_story_writer import write_free_story
-from rag.vectorstore import save_to_qdrant, client
+from rag.vector_store import save_to_qdrant, client
 from schemas.schemas import StoryRequest,StoryResponse,StoryType as StoryTypeSchema
 from services.title_generator import generate_title
 
