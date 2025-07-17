@@ -8,24 +8,24 @@ class Settings(BaseSettings):
    
    DEBUG: bool = False
 
-   DATABASE_URL: str = None
+   DATABASE_URL: str = "sqlite:///./test.db"
 
    QDRANT_URL:  str 
-   QDRANT_API_KEY: str 
+   QDRANT_KEY: str 
 
    ALLOWED_ORIGINS: str = ""
 
    GOOGLE_API_KEY: str
 
-   def __init__(self, **values):
-      super().__init__(**values)
-      if not self.DEBUG:
-         db_user = os.getenv("DB_USER")
-         db_password = os.getenv("DB_PASSWORD")
-         db_host = os.getenv("DB_HOST")
-         db_port = os.getenv("DB_PORT")
-         db_name = os.getenv("DB_NAME")
-         self.DATABASE_URL = f"postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}"
+   # def __init__(self, **values):
+   #    super().__init__(**values)
+   #    if not self.DEBUG:
+   #       db_user = os.getenv("DB_USER")
+   #       db_password = os.getenv("DB_PASSWORD")
+   #       db_host = os.getenv("DB_HOST")
+   #       db_port = os.getenv("DB_PORT")
+   #       db_name = os.getenv("DB_NAME")
+   #       self.DATABASE_URL = f"postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}"
 
    @field_validator("ALLOWED_ORIGINS")
    def parse_allowed_origins(cls, v: str) -> List[str]:

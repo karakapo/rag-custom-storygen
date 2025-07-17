@@ -1,14 +1,39 @@
+from vector_store import client
 import json
 from pathlib import Path
-from rag.vectorstore import save_data
+from rag.embedder import get_embedding
+import uuid
+from qdrant_client.models import PointStruct
 
-def main():
     
-    data_path = Path(__file__).parent.parent / "data.json"
+def save_to_qdrant(category, name, content):
     
-    print(f"Loading and embedding data from {data_path}...")
-    save_data(str(data_path))
-    print("Data has been successfully embedded and saved to Qdrant!")
+    embedding = get_embedding(content)
+    
+    point = PointStruct(
+        id=str(uuid.uuid4()) ,
+        vector=embedding,
+        payload={"category": category,
+                  "name": name,
+                  "content" : content}
+    )
+    
+    client.upsert(
+        collection_name="story_companents",
+        points=[point]  
+    )
 
-if __name__ == "__main__":
-    main() 
+
+    
+def save_data(json_path):
+    
+    with open(json_path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+
+
+    for item in data:
+        save_to_qdrant(
+            category=item["category"],
+            name=item["name"],
+            content=item["content"]
+        )

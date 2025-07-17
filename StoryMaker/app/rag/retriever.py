@@ -1,4 +1,4 @@
-from .vectorstore import get_embedding, client
+from rag.embedder import get_embedding
 import asyncio
 import random
 

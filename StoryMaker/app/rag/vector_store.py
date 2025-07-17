@@ -1,26 +1,14 @@
 from qdrant_client import QdrantClient
-from sentence_transformers import SentenceTransformer
-from qdrant_client.models import PointStruct
 import os 
 import uuid 
 import json 
+from core.config import settings
 
-
-
-URL = os.getenv("QDRANT_URL")  
-API_KEY = os.getenv("QDRANT_KEY")            
+URL = settings.QDRANT_URL
+API_KEY = settings.QDRANT_KEY
 
 
 client = QdrantClient(url=URL, api_key=API_KEY)
-
-
-embedding_model = SentenceTransformer('all-MiniLM-L6-v2')
-
-
-
-
-def get_embedding(text):
-    return embedding_model.encode(text)
 
 
 collection_name="story_companents"
@@ -55,34 +43,4 @@ else:
         )
 
 
-    
-def save_to_qdrant(category, name, content):
-    
-    embedding = get_embedding(content)
-    
-    point = PointStruct(
-        id=str(uuid.uuid4()) ,
-        vector=embedding,
-        payload={"category": category,
-                  "name": name,
-                  "content" : content}
-    )
-    
-    client.upsert(
-        collection_name="story_companents",
-        points=[point]  
-    )
 
-
-
-def save_data(json_path):
-    
-    with open(json_path, "r", encoding="utf-8") as f:
-        data = json.load(f)
-
-    for item in data:
-        save_to_qdrant(
-            category=item["category"],
-            name=item["name"],
-            content=item["content"]
-        )
