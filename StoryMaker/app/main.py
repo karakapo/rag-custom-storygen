@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from routers import story, story_create,auth
 from core import config
+from db.database import create_tables
 
 
 
@@ -23,3 +24,5 @@ app.add_middleware(
 app.include_router(story.router)
 app.include_router(story_create.router)
 app.include_router(auth.router)
+
+create_tables()

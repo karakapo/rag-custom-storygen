@@ -3,9 +3,7 @@ from sqlalchemy import Column, Integer, String, Text, DateTime, Boolean, JSON, F
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.sql import func
 import enum
-
-
-from database import Base
+from db.database import Base
 
 
 
@@ -28,4 +26,17 @@ class Story(Base):
     def __repr__(self):
         return f"<Story {self.title}>"
 
+
+class User(Base):
+    __tablename__ = "users"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    username = Column(String(50), unique=True, nullable=False)
+    full_name = Column(String(100), nullable=True)
+    email = Column(String(100), unique=True, nullable=False)
+    password = Column(String(200), nullable=False)  # Hashed password
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+    def __repr__(self):
+        return f"<User {self.username}>"
 

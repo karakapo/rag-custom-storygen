@@ -1,10 +1,15 @@
 import jwt
 from datetime import datetime, timedelta
-from fastapi import HTTPException, Security
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-
+from passlib.context import CryptContext
+from fastapi import Depends, HTTPException, status, Request
+from fastapi.security import OAuth2PasswordBearer
 
 from core.config import settings
+from db import models, database
+from db.models import User
+from db.database import SessionLocal    
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/login")
 
 # Create JWT Token
 def create_jwt_token(data: dict):
@@ -21,3 +26,43 @@ def verify_jwt_token(token: str):
         return decoded_token if decoded_token["exp"] >= datetime.utcnow() else None
     except jwt.PyJWTError:
         return None
+
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+
+def hash_password(password: str) -> str:
+    return pwd_context.hash(password)
+
+
+
+def verify_password(plain_password: str, hashed_password: str) -> bool:
+    return pwd_context.verify(plain_password, hashed_password)
+
+
+def get_current_user(token: str = Depends(oauth2_scheme)):
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    payload = verify_jwt_token(token)
+    if payload is None:
+        raise credentials_exception
+    username: str = payload.get("sub")
+    if username is None:
+        raise credentials_exception
+    # Kullanıcıyı veritabanından bul
+    db_user = database.get_user_by_username(username)
+    if db_user is None:
+        raise credentials_exception
+    return db_user
+
+
+    
+def get_user_by_username(username: str):
+    db = SessionLocal()
+    try:
+        return db.query(User).filter(User.username == username).first()
+    finally:
+        db.close()
