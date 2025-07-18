@@ -3,15 +3,14 @@ import os
 from langchain.prompts import ChatPromptTemplate
 from langchain.chains import LLMChain
 import json
-from dotenv import load_dotenv
 import asyncio
-from rag.retriever import retrieve_story_components
 
-load_dotenv()
+from rag.retriever import retrieve_story_components
+from core.config import settings
 
 llm_for_writing = ChatGoogleGenerativeAI(
     model="gemini-2.0-flash",
-    google_api_key=os.getenv("GOOGLE_API_KEY"),
+    google_api_key=settings.GOOGLE_API_KEY,
     temperature=0.8,
     convert_system_message_to_human=True
 )

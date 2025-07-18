@@ -74,3 +74,14 @@ class ImportItem(BaseModel):
     category: str = Field(..., description="Category of the story component")
     name: str = Field(..., description="Name/identifier of the component")
     content: str = Field(..., description="Content of the component")
+
+
+class Login(BaseModel):
+    username: str = Field(..., description="Kullanıcı adı")
+    password: str = Field(..., description="Parola")
+
+class Register(BaseModel):
+    username: str = Field(..., description="Kullanıcı adı")
+    full_name: str = Field(..., description="Tam adı")
+    email: str = Field(..., description="E-posta adresi")
+    password: str = Field(..., description="Parola")

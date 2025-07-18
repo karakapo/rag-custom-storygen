@@ -1,14 +1,14 @@
 import os
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.prompts import ChatPromptTemplate
-from dotenv import load_dotenv
 
-load_dotenv()
+from core.config import settings
+
 
 # Initialize LLM for title generation
-llm_for_tiitle= ChatGoogleGenerativeAI(
+llm_for_title= ChatGoogleGenerativeAI(
     model="gemini-2.0-flash",
-    google_api_key=os.getenv("GOOGLE_API_KEY"),
+    google_api_key=settings.GOOGLE_API_KEY,
     temperature=0.5
 )
 
@@ -24,7 +24,7 @@ title_prompt_template = ChatPromptTemplate.from_messages([
     """)
 ])
 
-title_chain = title_prompt_template | llm_for_tiitle
+title_chain = title_prompt_template | llm_for_title
 
 def generate_title(user_prompt: str) -> str:
     """

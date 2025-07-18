@@ -2,30 +2,31 @@ from typing import List
 from pydantic_settings import BaseSettings
 from pydantic import field_validator
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
 
 class Settings(BaseSettings):
    API_PREFIX: str = "/api"
    
-   DEBUG: bool = False
+   DEBUG: bool = False 
 
    DATABASE_URL: str = "sqlite:///./test.db"
 
-   QDRANT_URL:  str 
-   QDRANT_KEY: str 
+   QDRANT_URL:  str = os.getenv("QDRANT_URL")
+   QDRANT_KEY: str = os.getenv("QDRANT_KEY")
 
    ALLOWED_ORIGINS: str = ""
 
-   GOOGLE_API_KEY: str
+   GOOGLE_API_KEY: str = os.getenv("GOOGLE_API_KEY")
 
-   # def __init__(self, **values):
-   #    super().__init__(**values)
-   #    if not self.DEBUG:
-   #       db_user = os.getenv("DB_USER")
-   #       db_password = os.getenv("DB_PASSWORD")
-   #       db_host = os.getenv("DB_HOST")
-   #       db_port = os.getenv("DB_PORT")
-   #       db_name = os.getenv("DB_NAME")
-   #       self.DATABASE_URL = f"postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}"
+   JWT_SECRET_KEY: str = os.getenv("JWT_SECRET_KEY")
+   ALGORITHM: str = os.getenv("ALGORITHM")
+   ACCESS_TOKEN_EXPIRE_MINUTES: int = os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", 30)
+
+
+
 
    @field_validator("ALLOWED_ORIGINS")
    def parse_allowed_origins(cls, v: str) -> List[str]:

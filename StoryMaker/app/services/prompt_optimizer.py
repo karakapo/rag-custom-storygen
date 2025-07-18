@@ -1,15 +1,14 @@
 import os
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.prompts import ChatPromptTemplate
-from dotenv import load_dotenv
 
-load_dotenv()
+from core.config import settings
 
 
 # Initialize LangChain with Gemini
 llm_for_optimization = ChatGoogleGenerativeAI(
     model="gemini-2.0-flash",
-    google_api_key=os.getenv("GOOGLE_API_KEY"),
+    google_api_key=settings.GOOGLE_API_KEY,
     temperature=0.3
 )
 
