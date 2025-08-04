@@ -1,5 +1,7 @@
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends,status, HTTPException,Security
+from fastapi.security import HTTPBearer,HTTPAuthorizationCredentials
+
 
 from utils.auth import create_jwt_token, verify_jwt_token, hash_password, verify_password
 from schemas.schemas import Login,Register
@@ -42,7 +44,6 @@ async def register(user: Register):
       
 
 
-
 @router.post("/login")
 async def login(user: Login):
     db_user = get_user_by_username(user.username)
@@ -54,3 +55,4 @@ async def login(user: Login):
     token_data = {"sub": db_user.username}
     token = create_jwt_token(data=token_data)
     return {"access_token": token, "token_type": "bearer"}
+

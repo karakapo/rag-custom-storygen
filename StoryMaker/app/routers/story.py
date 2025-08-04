@@ -6,7 +6,6 @@ from typing import List
 from db.database import get_db
 from schemas.schemas import Story, StoryType, StoryResponse, StoryRequest
 from sqlalchemy.orm import Session
-from db.database import get_db
 
 
 
@@ -14,11 +13,6 @@ router = APIRouter(
     prefix="/stories",
     tags=["stories"]
 )
-
-
-
-
-
 
 
 @router.delete("/{story_id}")
@@ -47,7 +41,6 @@ async def get_story(story_id: int, session: Session = Depends(get_db)):
         prompt=story.original_prompt,
         content=story.content,
         title=story.title,
-        story_type=StoryTypeSchema(story.story_type.value),
         created_at=story.created_at,
         published_at=story.published_at
     )

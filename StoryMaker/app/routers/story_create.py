@@ -4,6 +4,7 @@ import datetime
 import time 
 from typing import List, Optional
 
+from utils.auth import get_current_user
 from schemas.schemas import Story, StoryType, StoryResponse, StoryRequest
 from sqlalchemy.orm import Session
 from db.database import get_db
@@ -19,7 +20,7 @@ router = APIRouter(
 
 
 @router.post("create/2", response_model=StoryResponse)
-async def story_create_with_rag(prompt: StoryRequest, session: Session = Depends(get_db)):
+async def story_create_with_rag(prompt: StoryRequest,current_user: dict = Depends(get_current_user) ,session: Session = Depends(get_db)):
     start_time = time.time()
     story = None  # Hikaye değişkenini try bloğu dışında başlat
     try:
